@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>作业16</title>
+        <title>message board</title>
         <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>
         <style >
             .W_input {
@@ -109,7 +109,7 @@
     </head>
     <body>
         <div class="bed">
-            <textarea class="W_input" maxlength="140"></textarea>
+            <textarea class="W_input" maxlength="140">在这里留言...</textarea>
             <div class="fonts">
                 <span class="font">还可以输入<span class="num">140</span>个字</span>
                 <button class="submit" type="button">提交</button>
@@ -140,7 +140,7 @@ var currentTime = function() {
 
 var bindEvent = function() {
     //给文本框绑定keyup事件以监测文本框内容的length
-    $('.W_input').on('keyup', function(){
+    $('.W_input').on('input', function(){
         var value = $('.W_input').val()
         var valueLen = value.length
         var ugyu = 140 - valueLen
@@ -151,7 +151,7 @@ var bindEvent = function() {
         var t = `
             <div class="commentDiv">
                 <div class="headImgDiv">
-                <img class="headImg" src="..\\草稿\\image\\头像.jpg" alt="" /><span class="username">墨雪:</span>
+                <img class="headImg" src="https://avatars2.githubusercontent.com/u/22389674?v=3&s=466" alt="" /><span class="username">墨雪:</span>
                 </div>
                 <span class="comment">
                 ${$('.W_input').val()}

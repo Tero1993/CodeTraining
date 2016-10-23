@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>轮播图</title>
+        <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>
+        <style>
+        .baseBed {
+            position: absolute;
+            top: 10%;
+            left: 30%;
+            width: 730px;
+            height: 550px;
+        }
+        .vertical-center {
+            top: 50%;
+            position: relative;
+            transform: translateY(-50%);
+        }
+        #id-div-imgBed {
+            width: 730px;
+            height: 454px;
+        }
+        .t-slide-imgs {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        .t-slide-img {
+            position: absolute;
+            display: none;
+        }
+        .t-slide-active {
+            display: block;
+        }
+        .t-slide-indicators {
+            bottom: 20px;
+            position: relative;
+            /*background: rebeccapurple;*/
+            text-align: center;
+        }
+        .t-slide-i {
+            display: inline-block;
+            background: lightgrey;
+            color: white;
+            border-radius: 50%;
+            padding: 0 5px;
+            opacity: 0.8
+        }
+        .t-slide-i-active {
+            background: red;
+            cursor: pointer;
+        }
+        .t-slide-button {
+            position: absolute;
+            width: 30px;
+            height: 50px;
+            font-size: 30px;
+            color: white;
+            background: black;
+            opacity: 0;
+        }
+        .t-slide-button-active {
+            position: absolute;
+            width: 30px;
+            height: 50px;
+            font-size: 30px;
+            color: white;
+            background: black;
+            opacity: 0.3;
+            cursor: pointer;
+            border: none;
+        }
+        .t-slide-button-right {
+            right: 0;
+        }
+        .thumBed {
+            position: relative;
+            top: 6%;
+            left: 6%;
+        }
+        .thumImg {
+            width: 100px;
+            height: 60px;
+        }
+        .thumImg-active{
+            border: 2px solid #ff0000;
+            cursor: pointer;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="baseBed">
+            <div id="id-div-imgBed">
+            </div>
+            <div class="thumBed">
+                <img class="thumImg thumImg-active"data-id="0"src="http://img11.360buyimg.com/da/jfs/t3310/175/141627423/91235/38d4c863/5800704cN10a1b8ec.jpg" alt="" />
+                <img class="thumImg"data-id="1"src="http://img14.360buyimg.com/da/jfs/t3304/115/4024806138/109511/286b04ae/57fdb696N393c22b1.jpg" alt="" />
+                <img class="thumImg"data-id="2"src="http://img14.360buyimg.com/da/jfs/t3082/111/3982906791/95378/f708c962/57fb29a0Ndc097155.jpg" alt="" />
+                <img class="thumImg"data-id="3"src="http://img13.360buyimg.com/da/jfs/t3394/45/72036756/125981/82aa1003/57fe0d3bN8d6f1a84.jpg" alt="" />
+                <img class="thumImg"data-id="4"src="http://img20.360buyimg.com/da/jfs/t3445/146/64108438/178404/7ff60ec3/57ff49c2N5bc8f436.jpg" alt="" />
+                <img class="thumImg"data-id="5"src="http://img13.360buyimg.com/da/jfs/t3499/120/135189608/123647/35c2e7d4/580054deNb46ae1a1.jpg" alt="" />
+            </div>
+        </div>
+<script>
+var log = function() {
+    console.log.apply(console,arguments)
+}
+
+var GuaSlide = function(element, images) {
+    /*
+    element 是一个 div 容器, DOM 类型, 创建的 slide 就 append 到这个容器中
+    images 是一个包含了图片地址的 array
+    */
+    var imagesLen = images.length
+    var t0 = `<div class="t-slide-imgs" data-active="0" data-imgs="${imagesLen}"></idv>`
+    $('#id-div-imgBed').append(t0)
+    var c0 = `<div class="t-slide-indicators"></div>`
+    $('#id-div-imgBed').append(c0)
+    for (var i = 0; i < imagesLen; i++) {
+        var image = images[i]
+        if (i < 1) {
+            var t1 = `
+            <img class="t-slide-img t-slide-active" src="${image}" alt="" />
+            `
+            log('t1', t1)
+            $(element).append(t1)
+            var c1 = `<div class="t-slide-i t-slide-i-active">${i+1}</div>`
+            $('.t-slide-indicators').append(c1)
+        } else {
+            var t2 = `
+            <img class="t-slide-img" src="${image}" alt="" />
+            `
+            log('t2', t2)
+            $(element).append(t2)
+            var c2 = `<div class="t-slide-i">${i+1}</div>`
+            $('.t-slide-indicators').append(c2)
+        }
+    }
+    var b = `
+    <button class="t-slide-button t-slide-button-left vertical-center" type="button">&lt;</button>
+    <button class="t-slide-button t-slide-button-right vertical-center" type="button">&gt;</button>`
+    $('.t-slide-imgs').append(b)
+}
+var images = ['http://img11.360buyimg.com/da/jfs/t3310/175/141627423/91235/38d4c863/5800704cN10a1b8ec.jpg',
+    'http://img14.360buyimg.com/da/jfs/t3304/115/4024806138/109511/286b04ae/57fdb696N393c22b1.jpg',
+    'http://img14.360buyimg.com/da/jfs/t3082/111/3982906791/95378/f708c962/57fb29a0Ndc097155.jpg',
+    'http://img13.360buyimg.com/da/jfs/t3394/45/72036756/125981/82aa1003/57fe0d3bN8d6f1a84.jpg',
+    'http://img20.360buyimg.com/da/jfs/t3445/146/64108438/178404/7ff60ec3/57ff49c2N5bc8f436.jpg',
+    'http://img13.360buyimg.com/da/jfs/t3499/120/135189608/123647/35c2e7d4/580054deNb46ae1a1.jpg']
+GuaSlide('.t-slide-imgs', images)
+
+$('document').ready(function(){
+    var play = function(offset) {
+        log('offset', offset)
+        var activeIndex = $('.t-slide-imgs').data('active')
+        log('activeIndex', activeIndex, typeof activeIndex)
+        var numberOfImgs = $('.t-slide-imgs').data('imgs')
+        log('numberOfImgs', numberOfImgs)
+        var i = (activeIndex + numberOfImgs + offset) % numberOfImgs
+        log('i', i, typeof i)
+        $('.t-slide-imgs').data('active', i)
+        $('.t-slide-active').fadeOut()
+        $('.t-slide-active').removeClass('t-slide-active')
+
+        var active = $($('.t-slide-img')[i])
+        active.addClass('t-slide-active')
+        active.fadeIn()
+        //改变指示器
+        $('.t-slide-i-active').removeClass('t-slide-i-active')
+        var activeIndicator = $($('.t-slide-i')[i])
+        activeIndicator.addClass('t-slide-i-active')
+        //同步缩略图
+        $('.thumImg-active').removeClass('thumImg-active')
+        var activeThum = $($('.thumImg')[i])
+        activeThum.addClass('thumImg-active')
+    }
+
+    var playPrev =function() {
+        play(-1)
+    }
+
+    var playNext =function() {
+        play(1)
+    }
+    //改变指示器active状态
+    var playIndicator = function(element, attrActive, attr) {
+        if (element.hasClass(attrActive) === false) {
+            var slideIs = $(attr)
+            $.map(slideIs, function(slideI){
+                if ($(slideI).hasClass(attrActive)) {
+                    $(slideI).removeClass(attrActive)
+                }
+            })
+            element.addClass(attrActive)
+        }
+    }
+    //根据下标显示指定image
+    var playAny = function(index) {
+        $('.t-slide-active').fadeOut()
+        $('.t-slide-active').removeClass('t-slide-active')
+        $($('.t-slide-img')[index]).addClass('t-slide-active')
+        $($('.t-slide-img')[index]).fadeIn()
+    }
+    //点击按钮切换图片
+    var clickButtonChange = function() {
+        $('.t-slide-button').on('click', function(event){
+            var button = $(event.target)
+            if (button.hasClass('t-slide-button-left')) {
+                setTimeout(playPrev, 400)
+            } else {
+                setTimeout(playNext, 400)
+            }
+        })
+    }
+    //鼠标进入图片时显示按钮,鼠标离开图片隐藏按钮
+    var changeButton = function() {
+        $('.t-slide-img').on('mouseover', function(){
+            $('.t-slide-button').addClass('t-slide-button-active')
+
+            log('鼠标进入img')
+        })
+        $('.t-slide-img').on('mouseout', function(){
+            $('.t-slide-button').removeClass('t-slide-button-active')
+            log('鼠标离开img')
+        })
+        $('.t-slide-button').on('mouseover', function(){
+            log('button')
+                $('.t-slide-button').addClass('t-slide-button-active')
+                log('鼠标进入按钮')
+        })
+        $('.t-slide-button').on('mouseout', function(){
+            log('button')
+                $('.t-slide-button').removeClass('t-slide-button-active')
+                log('鼠标离开按钮')
+        })
+    }
+    //鼠标移到数字标签页上, 标签变色并显示对应image
+    var changeIdr =function() {
+        $('.t-slide-i').on('mouseover',function(event){
+            var target = $(event.target)
+            var index = Number(target.text() - 1)
+            setTimeout(playIndicator(target, 't-slide-i-active', '.t-slide-i'), 10000)
+            setTimeout(playAny(index), 10000)
+        })
+    }
+    //鼠标移到缩略图上, 缩略图加边并显示对应image
+    var changeThum = function() {
+        $('.thumImg').on('mouseover', function(event){
+            var target = $(event.target)
+            playIndicator(target, 'thumImg-active', '.thumImg')
+            var index = Number(target.data('id'))
+            playAny(index)
+        })
+    }
+    var autoNext = function() {
+        var timer = setInterval(playNext, 4000)
+    }
+
+    var __main = function() {
+        clickButtonChange()
+        changeButton()
+        changeIdr()
+        changeThum()
+        autoNext()
+    }
+    __main()
+})
+
+</script>
+    </body>
+</html>
