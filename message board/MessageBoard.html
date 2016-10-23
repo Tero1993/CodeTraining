@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>作业16</title>
+        <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>
+        <style >
+            .W_input {
+                position: relative;
+                display: block;
+                left: 3px;
+                min-width: 570px;
+                min-height: 100px;
+                max-width: 570px;
+                max-height: 100px;
+                border-color: deepskyblue;
+                border-radius: 5px;
+                border-width: 1px;
+                font-size: 14px;
+                line-height: 18px;
+            }
+            .bed{
+                position: absolute;
+                top: 10%;
+                right: 40%;
+                width: 580px;
+                height: 180px;
+                z-index: -1;
+            }
+            .fonts {
+                position: relative;
+                display: block;
+                font-size: 15px;
+                height: 50px;
+            }
+            .font {
+                position: relative;
+                top: 12%;
+                left:280px;
+                font-family: sans-serif;
+                font-size: 16px;
+            }
+            .num{
+                position: relative;
+                color: red;
+                font-size: 30px;
+                font-style: italic;
+                right: 3px;
+            }
+            .submit {
+                position: absolute;
+                display: block;
+                top: 4%;
+                right: 0;
+                margin: 5px;
+                font-size: 18px;
+                width: 100px;
+                height: 40px;
+                font-family: Microsoft YaHei;
+                border-width: 0;
+                border-radius: 5px;
+                color: white;
+                background-color: deepskyblue;
+                cursor: pointer;
+            }
+            .commentsDiv {
+                position: absolute;
+                display: inline-table;
+                top: 30%;
+                right: 40%;
+                width: 580px;
+                height: 500px;
+                border: 1px solid;
+                border-radius: 5px;
+            }
+            .commentDiv {
+                position: relative;
+                display: block;
+                width: 100%;
+                margin: 3px 0;
+            }
+            .comment {
+                position: relative;
+                display: inline;
+                font-size: 18px;
+                font-family: Microsoft YaHei;
+            }
+            .headImgDiv {
+                position: relative;
+                display: block;
+                left: 1%;
+                width: 100px;
+                height: 35px;
+            }
+            .headImg {
+                position: relative;
+                display: inline-block;
+                left: 2%;
+                width: 35px;
+                height: 35px;
+            }
+            .username {
+                position: absolute;
+                display: inline-block;
+                line-height: 35px;
+                margin: 3px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="bed">
+            <textarea class="W_input" maxlength="140"></textarea>
+            <div class="fonts">
+                <span class="font">还可以输入<span class="num">140</span>个字</span>
+                <button class="submit" type="button">提交</button>
+            </div>
+        </div>
+        <div class="commentsDiv">
+
+        </div>
+<script>
+var log = function() {
+    console.log.apply(console,arguments)
+}
+
+var currentTime = function() {
+    //获取时间日期并赋值给d
+    var d = new Date()
+    //获取其中的年月日时分秒以自定义排版显示
+    var year = d.getFullYear()
+    var month = d.getMonth() + 1
+    //js中月是0-11,所以+1
+    var date = d.getDate()
+    var hours = d.getHours()
+    var minutes = d.getMinutes()
+    var seconds = d.getSeconds()
+    var timeString = `${year}/${month}/${date} ${hours}:${minutes}:${seconds}`
+    return timeString
+}
+
+var bindEvent = function() {
+    //给文本框绑定keyup事件以监测文本框内容的length
+    $('.W_input').on('keyup', function(){
+        var value = $('.W_input').val()
+        var valueLen = value.length
+        var ugyu = 140 - valueLen
+        $('.num').text(`${ugyu}`)
+    })
+    //给submit按钮绑定click事件
+    $('.submit').on('click', function(){
+        var t = `
+            <div class="commentDiv">
+                <div class="headImgDiv">
+                <img class="headImg" src="..\\草稿\\image\\头像.jpg" alt="" /><span class="username">墨雪:</span>
+                </div>
+                <span class="comment">
+                ${$('.W_input').val()}
+                </span><br>
+                <span>${currentTime()}</span>
+            </div>
+        <hr>
+        `
+        $('.commentsDiv').append(t)
+    })
+}
+bindEvent()
+</script>
+    </body>
+</html>

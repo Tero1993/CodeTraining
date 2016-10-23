@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>zoye15</title>
+        <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>
+        <style>
+            .bgpDiv {
+                position: absolute;
+                top: 30%;
+                left: 40%;
+                /*background: lightgrey;*/
+                width: 500px;
+                height: 400px;
+            }
+            .buttonDiv {
+                position: absolute;
+                display: inline-block;
+                /*background-color: pink;*/
+                top: 10%;
+                left: 50%;
+            }
+            .checkBoxs {
+                position: absolute;
+                display: inline-block;
+                top: 11%;
+                left: 10%;
+                background-color: deepskyblue;
+                width: 150px;
+                height: 175px;
+                border-radius: 5px;
+            }
+            .checkDiv-active {
+                position: relative;
+                /*left: 3%;*/
+                display: inline-block;
+                text-align: center;
+                line-height: 30px;
+                font-family: Microsoft YaHei;
+                margin: 6px;
+                width: 138px;
+                height: 30px;
+                background-color: deeppink;
+                color: white;
+                /*border-radius: 5px;*/
+                border-width: 0;
+                cursor: pointer;
+
+            }
+            .checkDiv {
+                position: relative;
+                /*left: 3%;*/
+                display: inline-block;
+                text-align: center;
+                line-height: 30px;
+                font-family: Microsoft YaHei;
+                margin: 6px;
+                width: 138px;
+                height: 30px;
+                background-color: white;
+                /*border-radius: 5px;*/
+                border-width: 0;
+                cursor: pointer;
+            }
+            .checkBox {
+                display: none;
+            }
+            .selectButton {
+                display: block;
+                margin: 5px;
+                font-size: 18px;
+                width: 150px;
+                height: 40px;
+                font-family: Microsoft YaHei;
+                border-width: 0;
+                border-radius: 5px;
+                color: white;
+                background-color: deepskyblue;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="bgpDiv">
+            <div class="buttonDiv">
+            <button class="selectButton selectAll" type="button" name="button">SelectAll</button>
+            <button class="selectButton reverseSelect" type="button" name="button">ReverseSelect</button>
+            <button class="selectButton save" type="button" name="button">save</button>
+            <button class="selectButton load" type="button" name="button">load</button>
+            </div>
+            <div class="checkBoxs">
+            </div>
+        </div>
+        <script>
+        var log = function() {
+            console.log.apply(console, arguments)
+        }
+
+        var GuaOptions1 = function(options) {
+            $(options).each(function(i, object){
+                if (object.checked === true) {
+                    var t1 = `<div class="itemDiv checkDiv-active">
+                    <input class="checkBox" type="checkbox" checked value="${object.text}" data-id="${i}">${object.text}
+                    </div><br>`
+                    $('.checkBoxs').append(t1)
+                } else if (object.checked === false) {
+                    var t2 = `<div class="itemDiv checkDiv">
+                    <input class="checkBox" type="checkbox" value="${object.text}" data-id="${i}">${object.text}
+                    </div><br>`
+                    $('.checkBoxs').append(t2)
+                }
+            })
+        }
+        var options = [
+            {'text': '两个黄鹂鸣翠柳', 'checked': true},
+            {'text': '一行白鹭上青天', 'checked': false},
+            {'text': '落霞与孤鹜齐飞', 'checked': false},
+            {'text': '秋水共长天一色', 'checked': true}]
+        GuaOptions1(options)
+
+        var options2 = options.slice(0)
+        //保存select
+        var saveSelect =function() {
+            var c = JSON.stringify(options2)
+            localStorage.optios2 = c
+        }
+        //parse Select
+        var loadSelect =function() {
+            var c = localStorage.optios2
+            return JSON.parse(c)
+        }
+        //给按钮绑定事件
+        var bindButton = function() {
+            var checkBoxs = $('.checkBox')
+            //全选
+            $('.selectAll').on('click', function(){
+                $(checkBoxs).each(function(i, checkBox){
+                    if ($(checkBox).prop("checked") === false) {
+                        $(checkBox).prop("checked", true)
+                        $($('.itemDiv')[i]).removeClass('checkDiv')
+                        $($('.itemDiv')[i]).addClass('checkDiv-active')
+                    }
+                })
+            })
+            //反选
+            $('.reverseSelect').on('click', function(){
+                $(checkBoxs).each(function(i, checkBox){
+                    if ($(checkBox).prop("checked") === false) {
+                        $(checkBox).prop("checked", true)
+                        $($('.itemDiv')[i]).removeClass('checkDiv')
+                        $($('.itemDiv')[i]).addClass('checkDiv-active')
+                    } else {
+                        $(checkBox).prop("checked", false)
+                        $($('.itemDiv')[i]).removeClass('checkDiv-active')
+                        $($('.itemDiv')[i]).addClass('checkDiv')
+                    }
+                })
+            })
+            //点选
+            $('.itemDiv').on('click', function(event){
+                var itemDiv = $(event.target)
+                var checkBox = $(itemDiv.children('input'))
+                if (itemDiv.hasClass('checkDiv')) {
+                    checkBox.prop("checked", true)
+                    itemDiv.removeClass('checkDiv')
+                    itemDiv.addClass('checkDiv-active')
+                } else {
+                    checkBox.prop("checked", false)
+                    itemDiv.removeClass('checkDiv-active')
+                    itemDiv.addClass('checkDiv')
+                }
+            })
+            //save
+            $('.save').on('click', function(){
+                $(checkBoxs).each(function(i, checkBox){
+                    if ($(checkBox).prop("checked") === true) {
+                        options2[i].checked = true
+                    } else {
+                        options2[i].checked = false
+                    }
+                })
+                saveSelect()
+            })
+            //load
+            $('.load').on('click', function(){
+                var options2 = loadSelect()
+                $(checkBoxs).each(function(i, checkBox){
+                    if ($(checkBox).prop("checked") != options2[i].checked) {
+                        $(checkBox).prop("checked", options2[i].checked)
+                        if ($(checkBox).prop("checked") === true) {
+                            $($('.itemDiv')[i]).removeClass('checkDiv')
+                            $($('.itemDiv')[i]).addClass('checkDiv-active')
+                        } else {
+                            $($('.itemDiv')[i]).removeClass('checkDiv-active')
+                            $($('.itemDiv')[i]).addClass('checkDiv')
+                        }
+                    }
+                })
+            })
+        }
+        bindButton()
+        </script>
+    </body>
+</html>
