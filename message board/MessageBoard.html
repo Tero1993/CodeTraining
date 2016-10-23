@@ -5,119 +5,146 @@
         <title>message board</title>
         <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>
         <style >
-            .W_input {
-                position: relative;
-                display: block;
-                left: 3px;
-                min-width: 570px;
-                min-height: 100px;
-                max-width: 570px;
-                max-height: 100px;
-                border-color: deepskyblue;
-                border-radius: 5px;
-                border-width: 1px;
-                font-size: 14px;
-                line-height: 18px;
-            }
-            .bed{
-                position: absolute;
-                top: 10%;
-                right: 40%;
-                width: 580px;
-                height: 180px;
-                z-index: -1;
-            }
-            .fonts {
-                position: relative;
-                display: block;
-                font-size: 15px;
-                height: 50px;
-            }
-            .font {
-                position: relative;
-                top: 12%;
-                left:280px;
-                font-family: sans-serif;
-                font-size: 16px;
-            }
-            .num{
-                position: relative;
-                color: red;
-                font-size: 30px;
-                font-style: italic;
-                right: 3px;
-            }
-            .submit {
-                position: absolute;
-                display: block;
-                top: 4%;
-                right: 0;
-                margin: 5px;
-                font-size: 18px;
-                width: 100px;
-                height: 40px;
-                font-family: Microsoft YaHei;
-                border-width: 0;
-                border-radius: 5px;
-                color: white;
-                background-color: deepskyblue;
-                cursor: pointer;
-            }
-            .commentsDiv {
-                position: absolute;
-                display: inline-table;
-                top: 30%;
-                right: 40%;
-                width: 580px;
-                height: 500px;
-                border: 1px solid;
-                border-radius: 5px;
-            }
-            .commentDiv {
-                position: relative;
-                display: block;
-                width: 100%;
-                margin: 3px 0;
-            }
-            .comment {
-                position: relative;
-                display: inline;
-                font-size: 18px;
-                font-family: Microsoft YaHei;
-            }
-            .headImgDiv {
-                position: relative;
-                display: block;
-                left: 1%;
-                width: 100px;
-                height: 35px;
-            }
-            .headImg {
-                position: relative;
-                display: inline-block;
-                left: 2%;
-                width: 35px;
-                height: 35px;
-            }
-            .username {
-                position: absolute;
-                display: inline-block;
-                line-height: 35px;
-                margin: 3px;
-            }
+        .messageBoard {
+            position: absolute;
+            display: block;
+            left: 25%;
+            width: 800px;
+            height: 900px;
+            border-radius: 5px;
+            background-color: lightblue;
+            top: 10%
+            left: 20%;
+            overflow:scroll;
+            z-index: -1;
+        }
+        .W_input {
+            position: relative;
+            display: block;
+            /*left: 3px;*/
+            min-width: 570px;
+            min-height: 100px;
+            max-width: 570px;
+            max-height: 100px;
+            border-color: deepskyblue;
+            border-radius: 5px;
+            border-width: 1px;
+            font-size: 14px;
+            line-height: 18px;
+        }
+        .textBed{
+            position: absolute;
+            display: block;
+            top: 9%;
+            right: 14%;
+            width: 580px;
+            height: 180px;
+            z-index: -1;
+        }
+        .fonts {
+            position: relative;
+            display: block;
+            font-size: 15px;
+            height: 50px;
+        }
+        .font {
+            position: relative;
+            top: 12%;
+            left:280px;
+            font-family: sans-serif;
+            font-size: 16px;
+        }
+        .num{
+            position: relative;
+            color: red;
+            font-size: 30px;
+            font-style: italic;
+            right: 3px;
+        }
+        .submit {
+            position: absolute;
+            display: block;
+            top: 4%;
+            right: 0;
+            margin: 5px;
+            font-size: 18px;
+            width: 100px;
+            height: 40px;
+            font-family: Microsoft YaHei;
+            border-width: 0;
+            border-radius: 5px;
+            color: white;
+            background-color: deepskyblue;
+            cursor: pointer;
+        }
+        .commentsDiv {
+            position: relative;
+            display: inline-table;
+            top: 38%;
+            left: 12%;
+            width: 580px;
+            height: 500px;
+            border: 1px solid;
+            border-radius: 5px;
+        }
+        .commentDiv {
+            position: relative;
+            display: block;
+            width: 100%;
+            margin: 3px 0;
+        }
+        .comment {
+            position: relative;
+            display: inline;
+            font-size: 18px;
+            font-family: Microsoft YaHei;
+            word-break: break-all;
+        }
+        .headImgDiv {
+            position: relative;
+            display: block;
+            left: 1%;
+            width: 100px;
+            height: 35px;
+        }
+        .headImg {
+            position: relative;
+            display: inline-block;
+            left: 2%;
+            width: 35px;
+            height: 35px;
+            border-radius: 5px;
+        }
+        .username {
+            position: absolute;
+            display: inline-block;
+            line-height: 35px;
+            margin: 3px;
+        }
+        .departLine {
+            position: absolute;
+            display: block;
+            top: 30%;
+            width: 800px;
+            height: 1px;
+            background-color: deepskyblue;
+        }
         </style>
     </head>
     <body>
-        <div class="bed">
-            <textarea class="W_input" maxlength="140">在这里留言...</textarea>
-            <div class="fonts">
-                <span class="font">还可以输入<span class="num">140</span>个字</span>
-                <button class="submit" type="button">提交</button>
+        <div class="messageBoard">
+            <div class="textBed">
+                <textarea class="W_input" maxlength="140">在这里留言...</textarea>
+                <div class="fonts">
+                    <span class="font">还可以输入<span class="num">140</span>个字</span>
+                    <button class="submit" type="button">提交</button>
+                </div>
             </div>
-        </div>
-        <div class="commentsDiv">
-
-        </div>
+            <div class="departLine">
+            </div>
+            <div class="commentsDiv">
+            </div>
+    </div>
 <script>
 var log = function() {
     console.log.apply(console,arguments)
@@ -153,9 +180,9 @@ var bindEvent = function() {
                 <div class="headImgDiv">
                 <img class="headImg" src="https://avatars2.githubusercontent.com/u/22389674?v=3&s=466" alt="" /><span class="username">墨雪:</span>
                 </div>
-                <span class="comment">
+                <p class="comment">
                 ${$('.W_input').val()}
-                </span><br>
+                </p><br>
                 <span>${currentTime()}</span>
             </div>
         <hr>
