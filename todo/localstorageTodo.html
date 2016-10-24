@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>TODO</title>
+        <style>
+            @import"todo.css";
+            @import"calendar.css";
+        </style>
+        <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>
+    </head>
+    <body>
+        <div class="todo-main">
+            <!-- todo 输入框 -->
+            <div class="todo-form">
+                <textarea id='id-input-todo'>Edit your TODO...</textarea>
+            </div>
+            <button class="mainButton addButton" type="button">Click Me Add TODO</button>
+            <button class="mainButton deleteAll-Button"type="button">Click Me Delete All TODO</button>
+            <!-- 竖直分割线 -->
+            <div class="verticalDepartLine">
+            </div>
+            <!-- 水平直分割线 -->
+            <div class="levelDepartLine">
+            </div>
+            <!-- todo 列表 -->
+            <div id="id-div-container">
+            </div>
+            <!--日历模块-->
+            <div class='calendar' id='calendar'>
+            </div>
+            <div class="bgpDiv">
+                <img class="bgpDiv" src="http://demo.cssmoban.com/cssthemes1/fwst_beachresort/images/bg-pattern.jpg" alt="" />
+            </div>
+        </div>
+        <!--弹窗背景-->
+        <div class="modal-alert">
+        </div>
+
+    <script src="todo.js"></script>
+    <script src="calendar.js"></script>
+    </body>
+</html>
