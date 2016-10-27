@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <title>PS</title>
+        <style>
+            .menuDiv {
+                position: absolute;
+                display: inline-block;
+                top: 0;
+                left: -560px;
+                width: 564px;
+                height: 1080px;
+                transition: 1s linear;
+                z-index: 10;
+            }
+            .bgpDiv {
+                position: absolute;
+                display: inline-block;
+                top: 0;
+                right: 0;
+                padding: 0;
+                width: 1355px;
+                height: 1080px;
+                z-index: 0;
+                /*transition: 5s linear;*/
+            }
+            .bgpImg {
+                position: absolute;
+                display: inline-block;
+                top: 0;
+                right: 0;
+                width: 1355px;
+                height: 1080px;
+                padding: 0;
+                /*vertical-align: middle;*/
+            }
+            .buttonImg {
+                position: absolute;
+                display: inline-block;
+                width: 59px;
+                height: 157px;
+                top: 41.1%;
+                left: 97%;
+                margin: 0;
+                border-radius: 0 8px 6px 0;
+                z-index: 10;
+                cursor: pointer;
+            }
+            @keyframes rotate {
+                0%,
+                100% {
+                    -webkit-transform: rotate(0deg);
+                }
+                100% {
+                    -webkit-transform: rotate(360deg);
+                }
+            }
+            .bigPlayButton {
+                position: absolute;
+                top: 30%;
+                right: 20%;
+                width: 200px;
+                height: 200px;
+                border-radius: 100px;
+                cursor: pointer;
+                z-index: 10;
+
+            }.smallPlayButton {
+                position: absolute;
+                top: 38%;
+                right: 15%;
+                width: 50px;
+                height: 50px;
+                border-radius: 25px;
+                cursor: pointer;
+                z-index: 10;
+            }
+            .musicPlayer {
+                position: absolute;
+                display: none;
+                width: 30%;
+                height: 10%;
+                top: 5%;
+                right: 20%;
+                background-color: green;
+                border-radius: 5px;
+                z-index: 10;
+            }
+            .ropeDown {
+                position: absolute;
+                top: 45.6%;
+                right: 15%;
+                width: 180px;
+                height: 6px;
+                background-color: black;
+                border-radius: 5px;
+                transform: rotate(-24deg);
+                z-index: 1;
+            }
+            .ropeUp {
+                position: absolute;
+                top: 35%;
+                right: 15%;
+                width: 180px;
+                height: 6px;
+                background-color: black;
+                border-radius: 5px;
+                transform: rotate(24deg);
+                z-index: 1;
+            }
+            /*.playButtonDiv {
+                position: absolute;
+                width: 20%;
+                height: 30%;
+                top: 32%;
+                right: 20%;
+                background-color: yellow;
+                z-index: 10;
+            }*/
+            .zipper {
+                position: absolute;
+                display: inline-block;
+                top: 1%;
+                left: 0%;
+                width: 1350px;
+                height: 40px;;
+            }
+            @keyframes trans {
+                0% {
+                    -webkit-transform: translateX(0);
+                }
+                100% {
+                    -webkit-transform: translateX(1240px);
+                }
+            }
+            .handdle {
+                position: absolute;
+                display: inline-block;
+                top: 80%;
+                left: 1%;
+                width: 100px;
+                height: 40px;
+                border-radius: 10px;
+                cursor: pointer;
+            }
+            .progress {
+                position: absolute;
+                display: inline-block;
+                top: 80%;
+                left: 0.2%;
+                width: 1350px;
+                height: 40px;
+                background-color: yellow;
+            }
+            .cutSong {
+                position: absolute;
+                top: 70%;
+                width: 50px;
+                height: 50px;
+                border-radius: 25px;
+                cursor: pointer;
+            }
+            .lastSong {
+                left: 30%;
+            }
+            .nextSong {
+                left: 60%;
+            }
+            .songList {
+                position: absolute;
+                top: 0;
+                left: 10%;
+                background-color: yellow;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="menuDiv">
+            <img class="menuImg" src="image/面板.jpg" alt="" />
+            <img class="buttonImg" src="image/按钮.jpg" alt="" />
+            <ul class="songList">
+            </ul>
+        </div>
+        <div class="bgpDiv">
+            <img class="bipImg" src="image/背景.jpg" alt="" />
+            <div class="progress">
+                <img class="zipper" src="image/zipper.jpg" alt="" />
+            </div>
+            <img class="handdle" src="image/拉手2.jpg" alt="" />
+            <img class="cutSong lastSong" data-action=last src="image/纽扣1.jpg" alt="" />
+            <img class="cutSong nextSong" data-action=next src="image/纽扣2.jpg" alt="" />
+        </div>
+        <!-- <img class="buttonButton1"src="image/纽扣.jpg" alt="" /> -->
+        <!-- <div class="playButtonDiv"> -->
+            <img class="bigPlayButton"src="image/纽扣4.jpg" alt="" />
+            <img class="smallPlayButton"src="image/小纽扣4.jpg" alt="" />
+            <div class="ropeDown">
+            </div>
+            <div class="ropeUp">
+            </div>
+
+        <!-- </div> -->
+        <audio class="musicPlayer"  controls="controls">
+
+        </audio>
+        <!-- <img class="sbuttonButton4Core"src="image/小纽扣4核心.jpg" alt="" /> -->
+        <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>
+<script>
+var log = function() {
+    console.log.apply(console, arguments)
+}
+
+var listOfSongs = ['连诗雅 - 水星逆行',
+    '大野克夫 - コナンドライブ4',
+    'Adele - Someone Like You',
+    'G.E.M.邓紫棋 - 泡沫',
+    '李克勤 - 月半小夜曲',
+    '薛之谦 - 演员',
+    '郑中基 - 答应不爱你',]
+
+var loadSongs = function(listOfSongs) {
+    log('listOfSongs', listOfSongs)
+    $(listOfSongs).each(function(i, e){
+        log('e', e)
+        var t = `<li data-index=${i}>${e}</li>`
+        log('t', t)
+        $('.songList').append(t)
+    })
+    var p = $('.musicPlayer')[0]
+    p.src = `audio/${listOfSongs[1]}.mp3`
+}
+loadSongs(listOfSongs)
+
+var playNext = function() {
+    log('nextSong')
+}
+
+var playLast = function() {
+    log('lastSong')
+}
+
+    //左侧菜单按钮，点击打开/关闭菜单
+    $('.buttonImg').on('click', function(){
+        log('start')
+        if ($('.buttonImg').css('transform') === 'none') {
+            log('wtf1')
+            $('.buttonImg').css('transform', "translateX(0)")
+            $('.menuDiv').css('transform', "translateX(99.3%)")
+            // $('.bgpDiv').css('transform', "translateX(200px)")
+        } else {
+            log('wtf2')
+            $('.menuDiv').css('transform', 'none')
+            // $('.bgpDiv').css('transform', 'none')
+            $('.buttonImg').css('transform', 'none')
+        }
+    })
+    //播放完成之后按钮（暂停）和进度条归位
+    $('.musicPlayer').on('ended', function(){
+        $('.bigPlayButton').css('animation-play-state', 'paused')
+        $('.smallPlayButton').css('animation-play-state', 'paused')
+        //进度条回到初始状态
+        $('.handdle').css('animation', 'none')
+    })
+
+    //通过zipper控制进度
+    $('.zipper').on('click', function(e){
+        var event = e.target
+        log('event', event)
+        log('zobc', e.clientX)
+    })
+
+    //播放上一首下一首
+    $('.cutSong').on('click', function(e){
+        var event = $(e.target)
+        var action = event.data('action')
+        log('action', action)
+        var actions = {
+            last: playLast,
+            next: playNext,
+        }
+        log('actions[action]', actions[action])
+        actions[action]
+
+    })
+
+    //点击旋转纽扣播放/暂停
+    $('.bigPlayButton, .smallPlayButton').on('click', function(){
+        var p = $('.musicPlayer')[0]
+        var time = p.duration
+        log('time',time)
+        var value = p.value
+        log('value', value)
+        if (p.paused === true) {
+            p.play()
+            //纽扣旋转
+            $('.bigPlayButton').css('animation', 'rotate 8s linear infinite')
+            $('.smallPlayButton').css('animation', 'rotate 2s linear infinite')
+            $('.bigPlayButton').css('animation-play-state', 'running')
+            $('.smallPlayButton').css('animation-play-state', 'running')
+            //进度条前进
+            $('.handdle').css('animation', `trans ${time}s linear infinite`)
+            $('.handdle').css('animation-play-state', 'running')
+        } else {
+            p.pause()
+            //纽扣暂停
+            $('.bigPlayButton').css('animation-play-state', 'paused')
+            $('.smallPlayButton').css('animation-play-state', 'paused')
+            //进度条暂停
+            $('.handdle').css('animation-play-state', 'paused')
+        }
+    })
+</script>
+    </body>
+</html>
