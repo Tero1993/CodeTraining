@@ -1,0 +1,283 @@
+.menuDiv {
+    position: absolute;
+    display: inline-block;
+    top: 0;
+    left: 0;
+    width: 564px;
+    height: 1080px;
+    transition: 1s linear;
+    z-index: 10;
+}
+.bgpDiv {
+    position: absolute;
+    display: inline-block;
+    top: 0;
+    right: 0;
+    padding: 0;
+    width: 1355px;
+    height: 1080px;
+    z-index: 0;
+}
+.bgpImg {
+    position: absolute;
+    display: inline-block;
+    top: 0;
+    right: 0;
+    width: 1355px;
+    height: 1080px;
+    /*vertical-align: middle;*/
+}
+.buttonImg {
+    position: absolute;
+    display: inline-block;
+    width: 59px;
+    height: 157px;
+    top: 41.1%;
+    left: 97%;
+    margin: 0;
+    border-radius: 0 8px 6px 0;
+    z-index: 10;
+    cursor: pointer;
+}
+@keyframes rotate {
+    0%,
+    100% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+.bigPlayButton {
+    position: absolute;
+    top: 30%;
+    right: 20%;
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+    cursor: pointer;
+    z-index: 10;
+}.smallPlayButton {
+    position: absolute;
+    top: 38%;
+    right: 15%;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    cursor: pointer;
+    z-index: 10;
+}
+.musicPlayer {
+    position: absolute;
+    display: none;
+    width: 30%;
+    height: 10%;
+    top: 5%;
+    right: 20%;
+    background-color: green;
+    border-radius: 5px;
+    z-index: 10;
+}
+.ropeDown {
+    position: absolute;
+    top: 45.6%;
+    right: 15%;
+    width: 180px;
+    height: 6px;
+    background-color: black;
+    border-radius: 5px;
+    transform: rotate(-24deg);
+    z-index: 1;
+}
+.ropeUp {
+    position: absolute;
+    top: 35%;
+    right: 15%;
+    width: 180px;
+    height: 6px;
+    background-color: black;
+    border-radius: 5px;
+    transform: rotate(24deg);
+    z-index: 1;
+}
+/*.playButtonDiv {
+    position: absolute;
+    width: 20%;
+    height: 30%;
+    top: 32%;
+    right: 20%;
+    background-color: yellow;
+    z-index: 10;
+}*/
+.zipper {
+    position: absolute;
+    display: inline-block;
+    top: 1%;
+    left: 0%;
+    width: 1350px;
+    height: 40px;
+    cursor: pointer;
+}
+.zipper-start {
+    position: absolute;
+    top: 0;
+    left: 1%;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: yellow;
+    z-index: 20;
+}
+.zipper-end {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: yellow;
+    z-index: 20;
+}
+/*.vol {
+    position: absolute;
+    display: inline-block;
+    top: 10%;
+    right: 10%;
+    width: 40px;
+    cursor: pointer;
+}*/
+@keyframes trans {
+    0% {
+        -webkit-transform: translateX(0);
+    }
+    100% {
+        -webkit-transform: translateX(1240px);
+    }
+}
+.handdle {
+    position: absolute;
+    display: inline-block;
+    top: 80%;
+    left: 1%;
+    width: 100px;
+    height: 40px;
+    border-radius: 10px 15px 15px 10px;
+    cursor: pointer;
+}
+.progress {
+    position: absolute;
+    display: inline-block;
+    top: 80%;
+    left: 0.2%;
+    width: 1350px;
+    height: 80px;
+    /*background-color: yellow;*/
+}
+.left {
+    position: absolute;
+    display: inline-block;
+    top: 60%;
+    left: 1%;
+    color: #e2bb6d;
+    font-size: 20px;
+    font-family: STLiti;
+}
+.right {
+    position: absolute;
+    display: inline-block;
+    top: 60%;
+    right: 1%;
+    color: #e2bb6d;
+    font-size: 20px;
+    font-family: STLiti;
+}
+@keyframes rally{
+    0%,
+    100% {
+        width: 48px;
+        height: 48px;
+        border-radius: 24px;
+    }
+    100% {
+        width: 46px;
+        height: 46px;
+        border-radius: 23px;
+    }
+}
+.cutSong {
+    position: absolute;
+    top: 70%;
+    width: 48px;
+    height: 48px;
+    border-radius: 25px;
+    cursor: pointer;
+}
+.lastSong {
+    left: 30%;
+}
+.nextSong {
+    left: 60%;
+}
+.songList {
+    position: absolute;
+    top: 4%;
+    left: 10%;
+    width: 80%;
+    height: 80%;
+    color: #3d727b;
+    font-size: 30px;
+    font-family: STLiti;
+    border-radius: 5px;
+}
+song {
+    position: relative;
+    top: 1%;
+    display: block;
+    text-align: center;
+    padding: 5px;
+    cursor: pointer;
+}
+song:hover {
+    font-size: 35px;
+}
+.song-active {
+    color: #e2bb6d;
+}
+.lining {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    z-index: 0;
+}
+.lining2 {
+    position: absolute;
+    /*clip: rect(2px 0px 1px 0px);*/
+    width: 57px;
+    height: 157px;
+    top: 41.1%;
+    border-radius: 0 6px 6px 0;
+    left: 0;
+}
+.describe {
+    position: absolute;
+    top: 10%;
+    font-size: 25px;
+    font-family: STLiti;
+    color: black;
+}
+.playMode {
+    position: absolute;
+    top: 70%;
+    right: 50%;
+    width: 90px;
+    height: 40px;
+    outline: 0;
+    color: #3d727b;
+    font-size: 18px;
+    font-family: STLiti;
+    cursor: pointer;
+    border-radius: 5px;
+    border-color: #e2bb6d;
+    background-color: #e2bb6d;
+}

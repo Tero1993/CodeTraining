@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+        <title>slider</title>
+        <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>
+        <style>
+            .relSlider {
+                position: absolute;
+                top: 50%;
+                left: 5%;
+                width: 90%;
+                z-index: 10;
+                opacity: 0;
+                cursor: pointer;
+            }
+            .slider-container{
+                position: absolute;
+                top: 50%;
+                left: 5%;
+                width: 90%;
+                height: 10%;
+                margin: 0;
+                border-radius: 5px;
+                background-color: rgba(238, 238, 238, 0.27);
+                opacity: 1;
+            }
+            .sliderDiv {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 0%;
+                height: 100%;
+                /*margin: 1px;*/
+                border-radius: 5px 0 0 5px;
+                background-color: #e69e9b;
+                opacity: 1;
+                box-shadow: inset 0 0 4px rgba(163, 18, 0, 0.7), inset 0 0 2px rgba(0, 0, 0, 0.5)
+            }
+            .thum {
+                position: absolute;
+                top: -40%;
+                left: 0%;
+                width: 2%;
+                height: 200%;
+                border-radius: 10px;
+                z-index: 9;
+                background-color: #d4d4d4;
+                box-shadow: 0 0px 2px rgba(0, 0, 0, 0.4), inset 0 0px 1px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.6), 0 4px 2px rgba(0, 0, 0, 0.2), 0 9px 4px rgba(0, 0, 0, 0.1), inset 0 2px 1px white;
+            }
+            .bgp {
+                position: absolute;
+                top: 0;
+                left: 0;
+                margin: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+            }
+            /*.bgpDiv {
+                position: absolute;
+                top: 0;
+                left: 0;
+                margin: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+            }*/
+            .sliderBar {
+                position: absolute;
+                top: 90%;
+                left: 0;
+                width: 100%;
+                height: 5%;
+                /*background-color: yellow;*/
+            }
+            .control {
+                position: absolute;
+                top: 80%;
+                left: 0;
+                width: 100%;
+                height: 10%;
+                /*background-color: green;*/
+            }
+            .play-pause {
+                position: absolute;
+                top: 0;
+                left: 47.5%;
+                width: 5%;
+                height: 100%;
+                margin: 0;
+                cursor: pointer;
+                border-radius: 50%;
+                /*background-color: deeppink;*/
+            }
+            .pause {
+                display: none;
+            }
+            .cutSong {
+                position: absolute;
+                top: 10%;
+                width: 4%;
+                height: 80%;
+                margin: 0;
+                cursor: pointer;
+                border-radius: 50%;
+                /*background-color: deeppink;*/
+            }
+            .last {
+                left: 23%;
+            }
+            .next {
+                right: 23%;
+            }
+            .mode-menu {
+                position: absolute;
+                top: 23%;
+                width: 3.6%;
+                height: 60%;
+                cursor: pointer;
+            }
+            .play-mode {
+                left: 8%;
+            }
+            .menu {
+                top: 28%;
+                right: 8%;
+                height: 45%;
+            }
+            time {
+                position: absolute;
+                top: 40%;
+                font-family: Microsoft YaHei;
+                font-size: 20px;
+                color: white;
+                line-height: 50%;
+            }
+            .currentTime {
+                left: 1%;
+            }
+            .duration {
+                right: 1%;
+            }
+            .titleBar {
+                position: absolute;
+                top: 1%;
+                left: 0;
+                width: 100%;
+                height: 10%;
+                color: white;
+                font-family: Microsoft YaHei;
+                /*background-color: green;*/
+                border-bottom: 1px solid rgba(206, 116, 109, 0.59);
+            }
+            .song-info {
+                position: absolute;
+                top: 0;
+                left: 10%;
+                width: 80%;
+                height: 100%;
+                text-align: center;
+                /*background-color: pink;*/
+            }
+            .song-name {
+                position: absolute;
+                top: 15%;
+                left: 0;
+                width: 100%;
+                height: 40%;
+                font-size: 120%;
+                /*background-color: red;*/
+            }
+            .singer {
+                position: absolute;
+                left: 0;
+                top: 60%;
+                width: 100%;
+                /*background-color: deeppink;*/
+            }
+            .return-icon {
+                position: absolute;
+                top: 20%;
+                left: 1%;
+                width: 4%;
+                height: 70%;
+                cursor: pointer;
+                /*background-color: green;*/
+            }
+            .share-icon {
+                position: absolute;
+                top: 20%;
+                right: 2%;
+                width: 4%;
+                height: 70%;
+                cursor: pointer;
+                /*background-color: green;*/
+            }
+            .small-bgp {
+                position: absolute;
+                top: 30%;
+                left: 44.6%;
+                /*width: 20%;
+                height: 35%;*/
+            }
+            .contact-area {
+                position: absolute;
+                top: 15%;
+                right: 0;
+                width: 6%;
+                height: 70%;
+                opacity: 0;
+                /*background-color: green;*/
+            }
+            .contact-area:hover {
+                opacity: 1;
+            }
+            .contact {
+                position: absolute;
+                top: 0%;
+                left: 30%;
+                height: 7%;
+                width: 45%;
+                cursor: pointer;
+            }
+            .like-icon {
+                top: 10%;
+            }
+            .liked {
+                display: none;
+            }
+            .comment-icon {
+                top: 35%;
+            }
+            .download-icon {
+                top: 60%;
+            }
+            .opreation-icon {
+                top: 85%;
+            }
+            .song-list {
+                position: absolute;
+                display: none;
+                top: 30%;
+                left: 0%;
+                width: 100%;
+                height: 70%;
+                font-family: Microsoft YaHei;
+                color: white;
+                text-align: center;
+                background-color: rgba(71, 116, 138, 0.96);
+                z-index: 20;
+            }
+            .song-list-title {
+                position: relative;
+                display: block;
+                top: 0%;
+                width: 100%;
+                height: 10%;
+                /*background-color: green;*/
+                border-bottom: 1px solid rgba(206, 116, 109, 0.59);
+            }
+            .close-list {
+                position: relative;
+                display: block;
+                bottom: 0%;
+                left: 0;
+                width: 100%;
+                height: 10%;
+                /*background-color: black;*/
+                border-top: 1px solid rgba(206, 116, 109, 0.59);
+            }
+            .list-span {
+                position: relative;
+                top: 22%;
+                /*background-color: red;*/
+            }
+            song {
+                position: relative;
+                display: block;
+                font-size: 14px;
+                text-align: left;
+                line-height: inherit;
+                left: 0;
+                width: 100%;
+                height: 10%;
+                border-bottom: 1px solid rgba(206, 116, 109, 0.59);
+            }
+            .song-active {
+                color: red;
+            }
+            .songs {
+                position: relative;
+                display: block;
+                top: 0%;
+                width: 100%;
+                height: 80%;
+                overflow: scroll;
+                /*background-color: red;*/
+            }
+            /*适应移动端*/
+            @media all and (min-width: 320px) and (max-width: 414px){
+                .sliderBar {
+                    /*background: green;*/
+                    top: 83%;
+                    height: 2.8%;
+                }
+                .slider-container {
+                    top: 46%;
+                    left: 10%;
+                    width: 80%;
+                }
+                .relSlider {
+                    top: -40%;
+                    left: 9.6%;
+                    width: 80%;
+                    opacity: 1;
+                }
+                .thum {
+                    top: -250%;
+                    width: 4%;
+                    height: 680%;
+                }
+                .control {
+                    top: 88%;
+                    height: 10%;
+                }
+                .play-pause {
+                    left: 41%;
+                    width: 17.7%;
+                }
+                .cutSong {
+                    width: 14.2%;
+                }
+                .last {
+                    left: 22%;
+                }
+                .next {
+                    right: 22%;
+                }
+                time {
+                    top: 30%;
+                    font-size: 8px;
+                    font-family: Microsoft JhengHei;
+                }
+                .play-mode {
+                    top: 28%;
+                    width: 8%;
+                    height: 50%;
+                }
+                .singlePlay, .randomPlay {
+                    display: none;
+                }
+                .menu {
+                    top: 30%;
+                    width: 8%;
+                    height: 40%;
+                }
+                .return-icon {
+                    position: absolute;
+                    top: 20%;
+                    left: 1%;
+                    width: 11%;
+                    height: 64%;
+                    /*background-color: green;*/
+                }
+                .share-icon {
+                    position: absolute;
+                    top: 20%;
+                    right: 1%;
+                    width: 11%;
+                    height: 63%;
+                    /*background-color: green;*/
+                }
+                .small-bgp {
+                    position: absolute;
+                    top: 34%;
+                    left: 24%;
+                }
+                .contact-area {
+                    position: absolute;
+                    top: 76%;
+                    left: 0;
+                    width: 100%;
+                    height: 4%;
+                    opacity: 1;
+                    /*background-color: green;*/
+                }
+                .contact {
+                    position: absolute;
+                    display: inline-block;
+                    top: 0%;
+                    height: 100%;
+                    width: 7%;
+                    /*background-color: red;*/
+                }
+                .like-icon {
+                    position: absolute;
+                    left: 16%;
+                }
+                .liked {
+                    display: none;
+                }
+                .comment-icon {
+                    position: absolute;
+                    left: 58%;
+                }
+                .download-icon {
+                    left: 35%;
+                }
+                .opreation-icon {
+                    left: 76%;
+                }
+            }
+            /*电脑全屏模式（1920*1080）*/
+            @media all and (min-height: 1080px) and (max-height: 1080px) {
+                .control {
+                    height: 9%;
+                }
+            }
+        </style>
+        <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>
+    </head>
+    <body>
+        <!-- 顶部标题模块 -->
+        <div class="titleBar">
+            <div class="song-info">
+                <div class="song-name">
+                    红豆
+                </div>
+                <div class="singer">
+                    王菲
+                </div>
+            </div>
+            <img class="return-icon" src="image/返回 (4).png" alt="" />
+            <img class="share-icon" src="image/分享 (5).png" alt="" />
+        </div>
+        <!-- 社交模块 -->
+        <div class="contact-area">
+            <img class="contact like-icon unlike" src="image/喜欢 (3).png" alt="" />
+            <img class="contact like-icon liked"src="image/喜欢 (4).png" alt="" />
+            <img class="contact comment-icon"src="image/评论 (3).png" alt="" />
+            <img class="contact download-icon"src="image/下载 (1).png" alt="" />
+            <img class="contact opreation-icon"src="image/更多操作 (2).png" alt="" />
+        </div>
+        <!-- 进度滑条模块 -->
+        <div class="sliderBar">
+            <input class="relSlider" step=0.01 type="range" max=1000 min=0 value=0></input>
+            <div class="slider-container">
+                <div class="thum">
+                </div>
+                <div class="sliderDiv">
+                </div>
+            </div>
+            <time class="currentTime left">00:00</time>
+            <time class="duration right">04:30</time>
+        </div>
+        <!-- 歌曲控制模块 -->
+        <div class="control">
+            <img class="controlSong cutSong last"src="image/icon_播放器_左 (3).png" alt="" />
+            <img class="controlSong play-pause play" src="image/音乐播放.png" alt="" />
+            <img class="controlSong play-pause pause" src="image/暂停(1).png" alt="" />
+            <img class="controlSong cutSong next"src="image/icon_播放器_右 (2).png" alt="" />
+
+            <img class="mode-menu play-mode listPlay" src="image/circulation-循环 (1).png" alt="" />
+            <img class="mode-menu play-mode singlePlay" src="image/单曲循环 (3).png" alt="" />
+            <img class="mode-menu play-mode randomPlay" src="image/随机播放 (3).png" alt="" />
+
+            <img class="mode-menu menu" src="image/菜单 (1).png" alt="" />
+
+        </div>
+        <!-- 背景模块 -->
+        <div class="bgpDiv">
+            <img class="bgp" src="image/水珠 (1).png" alt="" />
+            <img class="small-bgp" src="image/音乐 (3).png" alt="" />
+        </div>
+        <!-- 歌曲列表 -->
+        <div class="song-list">
+            <div class="song-list-title">
+                <span class="list-span">播放列表</span>
+            </div>
+            <div class="songs">
+            </div>
+            <div class="close-list">
+                <span class="list-span">关闭列表</span>
+            </div>
+        </div>
+        <audio class="musicPlayer"></audio>
+<script>
+var log = function() {
+    console.log.apply(console, arguments)
+}
+//歌曲名构造数组
+var listOfSongs = ['连诗雅 - 水星逆行',
+    'Bruno Mars,Royce Da,Eminem - Lighters',
+    'Adele - Someone Like You',
+    'Narsha,MiRyo - I Love You',
+    'Alan Walker - Fade',
+    '王菲 - 红豆',
+    '徐佳莹,林俊杰 - 不为谁而作的歌',
+    'G.E.M.邓紫棋 - 泡沫',
+    '李克勤 - 月半小夜曲',
+    '薛之谦 - 演员',
+    '郑中基 - 答应不爱你',
+    '张学友,汤宝如 - 相思风雨中',]
+
+var Music = function(song, NameOfSong, singer, number, time, vol) {
+    this.song = song
+    this.NameOfSong = NameOfSong
+    this.singer = singer
+    this.number = number
+    this.time = time
+    this.volume = vol
+    this.play = function() {
+        var p = $('.musicPlayer')[0]
+        p.src = `audio/${this.song}.mp3`
+        p.volume = this.volume
+        p.currentTime = this.time
+        p.play()
+    }
+}
+
+var songs = []
+$(listOfSongs).each(function(i, song){
+    var l = song.length
+    for (var i = 0; i < l; i++) {
+        if (song[i] === '-') {
+            var NameOfSong = song.slice(i+2)
+            var singer = song.slice(0, i-1)
+            var e = new Music(song, NameOfSong, singer, i, 0, 1)
+            songs.push(e)
+        }
+    }
+})
+
+//加载歌曲到列表
+var loadSongs = function(listOfSongs) {
+    $(listOfSongs).each(function(i, e){
+        if (i < 1) {
+            var t = `<song class="song-active" data-index=${i}><span class=list-span>${e}<span></song>`
+            $('.songs').append(t)
+        } else {
+            var t = `<song data-index=${i}><span class=list-span>${e}<span></song>`
+            $('.songs').append(t)
+        }
+    })
+    var p = $('.musicPlayer')[0]
+    p.src = `audio/${listOfSongs[0]}.mp3`
+    $('.song-name').text(songs[0].NameOfSong)
+    $('.singer').text(songs[0].singer)
+}
+loadSongs(listOfSongs)
+
+//切换第i首歌的状态为active
+var changeInfo = function(i) {
+    $('.song-active').removeClass('song-active')
+    $($('song')[i]).addClass('song-active')
+    $('.song-name').text(songs[i].NameOfSong)
+    $('.singer').text(songs[i].singer)
+}
+//播放某首歌
+var playSong = function(offset) {
+    var list = $('song')
+    var numbers = list.length
+    var i = $('.song-active').data('index')
+    var ing = (i + offset + numbers) % numbers
+    songs[ing].play()
+    changeInfo(ing)
+}
+
+var playNext = function() {
+    playSong(1)
+}
+
+var playLast = function() {
+    playSong(-1)
+}
+//顺序播放
+var orderPlay =function() {
+    //播模拟点击下一曲
+    $('.next').click()
+}
+//单曲循环
+var singlePlay =function() {
+    $('.last').click()
+}
+//随机播放
+var randomPlay = function() {
+    var r = Math.floor(Math.random() * songs.length)
+    songs[r].play()
+    changeInfo(r)
+}
+//时间格式化
+var formatTime = function(time) {
+    var minutes = Math.floor(time / 60)
+    var seconds = Math.floor(time % 60)
+    if (seconds < 10) {
+        seconds = '0' + String(seconds)
+    } else if (minutes < 10) {
+        minutes = '0' + String(minutes)
+    }
+    var t = `${minutes}:${seconds}`
+    return t
+}
+//canplay时准备画面
+$('.musicPlayer').on('canplay', function(){
+    var p = $('.musicPlayer')[0]
+    var time = p.duration
+    //时间重置
+    $('.currentTime').text('00:00')
+    $('.duration').text(formatTime(time))
+})
+//滑动条实现
+$('.relSlider').on('input', function(e){
+    var p = $('.musicPlayer')[0]
+    var allTime = p.duration
+    var target = $(e.target)
+    var sWidth = target.css('width')
+    var sLen = Number(sWidth.slice(0, sWidth.length-2))
+    var max = target.attr('max')
+    var ratio = target.val() / max
+    var divLen = sLen * ratio
+    $('.sliderDiv').css('width', divLen)
+    $('.thum').css('left', `${divLen-5}px`)
+    p.currentTime = allTime * ratio
+})
+//进度条同步播放进度
+$('.musicPlayer').on('timeupdate', function(){
+    var p = $('.musicPlayer')[0]
+    var allTime = p.duration
+    var time = p.currentTime
+    var ratio = time / allTime
+    var max = $('.relSlider').attr('max')
+    $('.relSlider').prop('value', max * ratio)
+    var sWidth = $('.slider-container').css('width')
+    var sLen = Number(sWidth.slice(0, sWidth.length-2))
+    var divLen = sLen * ratio
+    $('.sliderDiv').css('width', divLen)
+    $('.thum').css('left', `${divLen-5}px`)
+    $('.currentTime').text(formatTime(time))
+})
+//关闭歌曲列表
+$('.close-list, .bgpDiv, .titleBar').on('click', function(){
+    $('.song-list').css('display', 'none')
+})
+//打开歌曲列表
+$('.menu').on('click', function(){
+    $('.song-list').css('display', 'block')
+})
+//点击歌曲播放
+$('.songs').on('click', function(e){
+    var target = $(e.target)
+    var res = target.closest('song')
+    var i = res.data('index')
+    songs[i].play()
+    changeInfo(i)
+    $('.play').css('display', 'none')
+    $('.pause').css('display', 'inline-block')
+})
+//绑定按钮播放上一首下一首
+$('.cutSong').on('click', function(e){
+    var p = $('.musicPlayer')[0]
+    var target = $(e.target)
+    // if (p.paused === false) {
+        if ($('.randomPlay').css('display') != 'none') {
+            randomPlay()
+        } else if(target.hasClass('last')) {
+            playLast()
+        } else {
+            playNext()
+        }
+    // } else {
+    //     if ($('.randomPlay').css('display') != 'none') {
+    //         randomPlay()
+    //     } else if(target.hasClass('last')) {
+    //         playLast()
+    //     } else {
+    //         playNext()
+    //     }
+    // }
+})
+//点击播放/暂停
+$('.play-pause').on('click', function(e) {
+    var target = $(e.target)
+    var p = $('.musicPlayer')[0]
+    if (target.hasClass('play')) {
+        $('.play').css('display', 'none')
+        $('.pause').css('display', 'inline-block')
+        p.play()
+    } else {
+        $('.pause').css('display', 'none')
+        $('.play').css('display', 'inline-block')
+        p.pause()
+    }
+})
+//点击喜欢/取消喜欢（喜欢则给歌曲做上被喜欢的标记）
+$('.contact').on('click', function(e){
+    var target = $(e.target)
+    if (target.hasClass('unlike')) {
+        $('.unlike').css('display', 'none')
+        $('.liked').css('display', 'inline-block')
+    } else {
+        $('.liked').css('display', 'none')
+        $('.unlike').css('display', 'inline-block')
+    }
+})
+//默认播放模式为列表播放
+$('.musicPlayer').on('ended', function(){
+    orderPlay()
+})
+//点击切换播放模式
+$('.play-mode').on('click', function(e){
+    var target = $(e.target)
+    if (target.hasClass('listPlay')) {
+        $('.musicPlayer').off('ended', orderPlay)
+        $('.musicPlayer').on('ended', singlePlay)
+        $('.listPlay').css('display', 'none')
+        $('.singlePlay').css('display', 'inline-block')
+    } else if(target.hasClass('singlePlay')) {
+        $('.musicPlayer').off('ended', singlePlay)
+        $('.musicPlayer').on('ended', randomPlay)
+        $('.singlePlay').css('display', 'none')
+        $('.randomPlay').css('display', 'inline-block')
+    } else {
+        $('.musicPlayer').off('ended', randomPlay)
+        $('.musicPlayer').on('ended', orderPlay)
+        $('.randomPlay').css('display', 'none')
+        $('.listPlay').css('display', 'inline-block')
+    }
+})
+</script>
+    </body>
+</html>

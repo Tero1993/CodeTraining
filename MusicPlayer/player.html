@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <title>player</title>
+        <style>
+            @import"player.css";
+        </style>
+    </head>
+    <body>
+        <div class="lining">
+            <img src="image/lining.jpg" alt="" />
+            <p class="describe">
+                这里还没做功能，<br>
+                暂时用来写使用说明。<br>
+                点击大纽扣播放/暂停,<br>
+                下方小纽扣是上/下一首开关<br>
+                目前只支持点击更改进度（拖动还没做┑(￣Д ￣)┍）<br>
+            </p>
+        </div>
+        <div class="menuDiv">
+            <img class="menuImg" src="image/歌单背景.jpg" alt="" />
+            <img class="buttonImg" src="image/歌单开关.jpg" alt="" />
+            <div class="songList">
+            </div>
+        </div>
+        <div class="bgpDiv">
+            <img class="lining2" src="image/lining2.jpg" alt="" />
+            <img class="bipImg" src="image/背景.jpg" alt="" />
+            <!-- <img class="vol" src="image/vol.jpg" alt="" /> -->
+            <div class="progress">
+                <img class="zipper" src="image/zipper.jpg" alt="" />
+                <time id=id-time-current class=left>0:00</time>
+                <time id=id-time-duration class=right>2:31</time>
+                <div class="zipper-start">
+
+                </div>
+                <div class="zipper-end">
+
+                </div>
+            </div>
+            <img class="handdle" draggable="true" src="image/拉手2.png" alt="" />
+            <img class="cutSong lastSong" data-action=last src="image/纽扣1.jpg" alt="" />
+            <img class="cutSong nextSong" data-action=next src="image/纽扣2.jpg" alt="" />
+            <button class="playMode" type="button" name="button">顺序播放</button>
+        </div>
+        <!-- <img class="buttonButton1"src="image/纽扣.jpg" alt="" /> -->
+        <!-- <div class="playButtonDiv"> -->
+            <img class="bigPlayButton"src="image/纽扣4.jpg" alt="" />
+            <img class="smallPlayButton"src="image/小纽扣4.jpg" alt="" />
+            <div class="ropeDown">
+            </div>
+            <div class="ropeUp">
+            </div>
+        <!-- </div> -->
+        <audio class="musicPlayer"  controls="controls">
+        </audio>
+        <!-- <img class="sbuttonButton4Core"src="image/小纽扣4核心.jpg" alt="" /> -->
+        <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>
+        <script src="player.js"></script>
+    </body>
+</html>
