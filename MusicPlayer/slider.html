@@ -123,6 +123,9 @@
             .play-mode {
                 left: 8%;
             }
+            .randomPlay, .singlePlay {
+                display: none;
+            }
             .menu {
                 top: 28%;
                 right: 8%;
@@ -298,6 +301,33 @@
                 overflow: scroll;
                 /*background-color: red;*/
             }
+            .lrc-area {
+                position: absolute;
+                top: 15%;
+                left: 0%;
+                width: 100%;
+                height: 60%;
+                font-family: Microsoft YaHei;
+                font-size: 16px;
+                text-align: center;
+                color: white;
+                background-color: red;
+                overflow: scroll;
+            }
+            p{
+                position: relative;
+                top: 30%;
+                height: 6%;
+                display: block;
+                width: 100%;
+            }
+            .currentLrc {
+                position: absolute;
+                top: 30%;
+                background-color: green;
+                font-size: 18px;
+                color: yellow;
+            }
             /*适应移动端*/
             @media all and (min-width: 320px) and (max-width: 414px){
                 .sliderBar {
@@ -314,7 +344,7 @@
                     top: -40%;
                     left: 9.6%;
                     width: 80%;
-                    opacity: 1;
+                    opacity: 0;
                 }
                 .thum {
                     top: -250%;
@@ -438,7 +468,7 @@
         <!-- 社交模块 -->
         <div class="contact-area">
             <img class="contact like-icon unlike" src="image/喜欢 (3).png" alt="" />
-            <img class="contact like-icon liked"src="image/喜欢 (4).png" alt="" />
+            <img class="contact like-icon liked"src="image/填充喜欢 (4).png" alt="" />
             <img class="contact comment-icon"src="image/评论 (3).png" alt="" />
             <img class="contact download-icon"src="image/下载 (1).png" alt="" />
             <img class="contact opreation-icon"src="image/更多操作 (2).png" alt="" />
@@ -463,7 +493,7 @@
             <img class="controlSong cutSong next"src="image/icon_播放器_右 (2).png" alt="" />
 
             <img class="mode-menu play-mode listPlay" src="image/circulation-循环 (1).png" alt="" />
-            <img class="mode-menu play-mode singlePlay" src="image/单曲循环 (3).png" alt="" />
+            <img class="mode-menu play-mode singlePlay" src="image/列表循环 (3).png" alt="" />
             <img class="mode-menu play-mode randomPlay" src="image/随机播放 (3).png" alt="" />
 
             <img class="mode-menu menu" src="image/菜单 (1).png" alt="" />
@@ -485,10 +515,77 @@
                 <span class="list-span">关闭列表</span>
             </div>
         </div>
+        <!-- 歌词区域 -->
+        <div class="lrc-area">
+            <p class="currentLrc"></p>
+        </div>
         <audio class="musicPlayer"></audio>
 <script>
 var log = function() {
     console.log.apply(console, arguments)
+}
+var lrc7 =
+    `[00:00.01]泡沫
+    [00:00.30]作曲：G.E.M. 作词：G.E.M.
+    [00:00.50]演唱：邓紫棋
+    [00:01.10]
+    [00:01.72]阳光下的泡沫　是彩色的
+    [00:08.45]就像被骗的我　是幸福的
+    [00:15.58]追究什么对错　你的谎言　基于你还爱我
+    [00:27.21]
+    [00:28.74]美丽的泡沫　虽然一刹花火
+    [00:35.89]你所有承诺　虽然都太脆弱
+    [00:42.84]但爱像泡沫　如果能够看破　有什么难过
+    [00:50.10]
+    [00:57.95]早该知道泡沫　一触就破
+    [01:04.98]就像已伤的心　不胜折磨
+    [01:12.04]也不是谁的错　谎言再多　基于你还爱我
+    [01:23.39]
+    [01:25.31]美丽的泡沫　虽然一刹花火
+    [01:32.36]你所有承诺　虽然都太脆弱
+    [01:39.45]爱本是泡沫　如果能够看破　有什么难过
+    [01:53.59]再美的花朵　盛开过就凋落
+    [02:00.63]再亮眼的星　一闪过就堕落
+    [02:07.70]爱本是泡沫　如果能够看破　有什么难过
+    [02:18.64]
+    [02:22.00]为什么难过　有什么难过　为什么难过
+    [02:45.99]
+    [02:46.64]全都是泡沫　只一刹的花火
+    [02:53.60]你所有承诺　全部都太脆弱
+    [03:00.68]而你的轮廓　怪我没有看破　才如此难过
+    [03:14.87]相爱的把握　要如何再搜索
+    [03:21.82]相拥着寂寞　难道就不寂寞
+    [03:28.95]爱本是泡沫　怪我没有看破　才如此难过
+    [03:39.36]
+    [03:43.92]在雨下的泡沫　一触就破
+    [03:50.98]当初炽热的心　早已沉没
+    [03:57.95]说什么你爱我　如果骗我　我宁愿你沉默
+    [04:09.45]`
+var geciArr7 = lrc7.split('\n')
+var iuli2 = function(geci) {
+    var len = geci.length
+    for (var i = 0; i < len; i++) {
+        if (geci[i] != ' ') {
+            var result = geci.slice(i)
+            return result
+        }
+    }
+}
+
+var iuli3 = function(geciArrN) {
+    var r = []
+    for (var i = 0; i < geciArrN.length; i++) {
+        var u = []
+        var e = iuli2(geciArrN[i])
+        var m = e.slice(1, 3)
+        var s = e.slice(4, 9)
+        var t = Number(m) * 60 + Number(s)
+        u.push(t)
+        var c = e.slice(10)
+        u.push(c)
+        r.push(u)
+    }
+    return r
 }
 //歌曲名构造数组
 var listOfSongs = ['连诗雅 - 水星逆行',
@@ -511,9 +608,10 @@ var Music = function(song, NameOfSong, singer, number, time, vol) {
     this.number = number
     this.time = time
     this.volume = vol
+    this.src = `audio/${this.song}.mp3`
     this.play = function() {
         var p = $('.musicPlayer')[0]
-        p.src = `audio/${this.song}.mp3`
+        p.src = this.src
         p.volume = this.volume
         p.currentTime = this.time
         p.play()
@@ -560,11 +658,12 @@ var changeInfo = function(i) {
 }
 //播放某首歌
 var playSong = function(offset) {
+    var p = $('.musicPlayer')[0]
     var list = $('song')
     var numbers = list.length
     var i = $('.song-active').data('index')
     var ing = (i + offset + numbers) % numbers
-    songs[ing].play()
+    p.src = songs[ing].src
     changeInfo(ing)
 }
 
@@ -579,6 +678,8 @@ var playLast = function() {
 var orderPlay =function() {
     //播模拟点击下一曲
     $('.next').click()
+    var p = $('.musicPlayer')[0]
+    return p
 }
 //单曲循环
 var singlePlay =function() {
@@ -586,17 +687,19 @@ var singlePlay =function() {
 }
 //随机播放
 var randomPlay = function() {
+    var p = $('.musicPlayer')[0]
     var r = Math.floor(Math.random() * songs.length)
-    songs[r].play()
+    p.src = songs[r].src
     changeInfo(r)
 }
-//时间格式化
+//显示时间格式化
 var formatTime = function(time) {
     var minutes = Math.floor(time / 60)
     var seconds = Math.floor(time % 60)
     if (seconds < 10) {
         seconds = '0' + String(seconds)
-    } else if (minutes < 10) {
+    }
+    if (minutes < 10) {
         minutes = '0' + String(minutes)
     }
     var t = `${minutes}:${seconds}`
@@ -609,8 +712,28 @@ $('.musicPlayer').on('canplay', function(){
     //时间重置
     $('.currentTime').text('00:00')
     $('.duration').text(formatTime(time))
-})
-//滑动条实现
+    //加载歌词
+    var index = $('.song-active').data('index')
+    var c = eval(`geciArr${index}`)
+    if (c != undefined) {
+        var r = iuli3(c)
+        log('c', c, typeof c)
+        for (var i = 0; i < r.length; i++) {
+                if (i<1 && r[i][1]!= '') {
+                    log('i', i, r[i][1])
+                    var t = `<p class="lrc-not-play currentLrc">${r[i][1]}<p>`
+                    $('.lrc-area').append(t)
+                } else if (r[i][1]!= ''){
+                    var t = `<p class="lrc-not-play">${r[i][1]}<p>`
+                    $('.lrc-area').append(t)
+                }
+            }
+        } else {
+            var t = `<p>暂无歌词<p>`
+            $('.lrc-area').append(t)
+        }
+    })
+//滑动条效果实现
 $('.relSlider').on('input', function(e){
     var p = $('.musicPlayer')[0]
     var allTime = p.duration
@@ -629,6 +752,8 @@ $('.musicPlayer').on('timeupdate', function(){
     var p = $('.musicPlayer')[0]
     var allTime = p.duration
     var time = p.currentTime
+    // log('time', time)
+    //同步进度条
     var ratio = time / allTime
     var max = $('.relSlider').attr('max')
     $('.relSlider').prop('value', max * ratio)
@@ -637,7 +762,24 @@ $('.musicPlayer').on('timeupdate', function(){
     var divLen = sLen * ratio
     $('.sliderDiv').css('width', divLen)
     $('.thum').css('left', `${divLen-5}px`)
+    //同步当前时间
     $('.currentTime').text(formatTime(time))
+    var r = iuli3(geciArr7)
+    var l = r.length
+    for (var i = 0; i < l; i++) {
+        if (time+0.5 > r[i][0]) {
+            log(r[i][1])
+            $('.currentLrc').removeClass('currentLrc')
+            $($('.lrc-not-play')[i]).addClass('currentLrc')
+            // $($('.lrc-not-play')[i]).text(r[i][1])
+            var g = i * 30
+            $('.lrc-not-play').each(function(index, e){
+                if (index != i) {
+                    $(e).css('top',`-${g}px`)
+                }
+            })
+        }
+    }
 })
 //关闭歌曲列表
 $('.close-list, .bgpDiv, .titleBar').on('click', function(){
@@ -661,7 +803,7 @@ $('.songs').on('click', function(e){
 $('.cutSong').on('click', function(e){
     var p = $('.musicPlayer')[0]
     var target = $(e.target)
-    // if (p.paused === false) {
+    if (p.paused === false) {
         if ($('.randomPlay').css('display') != 'none') {
             randomPlay()
         } else if(target.hasClass('last')) {
@@ -669,15 +811,16 @@ $('.cutSong').on('click', function(e){
         } else {
             playNext()
         }
-    // } else {
-    //     if ($('.randomPlay').css('display') != 'none') {
-    //         randomPlay()
-    //     } else if(target.hasClass('last')) {
-    //         playLast()
-    //     } else {
-    //         playNext()
-    //     }
-    // }
+        p.play()
+    } else {
+        if ($('.randomPlay').css('display') != 'none') {
+            randomPlay()
+        } else if(target.hasClass('last')) {
+            playLast()
+        } else {
+            playNext()
+        }
+    }
 })
 //点击播放/暂停
 $('.play-pause').on('click', function(e) {
@@ -706,7 +849,7 @@ $('.contact').on('click', function(e){
 })
 //默认播放模式为列表播放
 $('.musicPlayer').on('ended', function(){
-    orderPlay()
+    orderPlay().play()
 })
 //点击切换播放模式
 $('.play-mode').on('click', function(e){

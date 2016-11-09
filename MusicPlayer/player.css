@@ -125,7 +125,6 @@
     width: 10px;
     height: 10px;
     border-radius: 5px;
-    background-color: yellow;
     z-index: 20;
 }
 .zipper-end {
@@ -135,7 +134,6 @@
     width: 10px;
     height: 10px;
     border-radius: 5px;
-    background-color: yellow;
     z-index: 20;
 }
 /*.vol {
