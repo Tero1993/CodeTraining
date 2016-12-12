@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>scale</title>
+        <style>
+            .bed {
+                position: relative;
+                display: block;
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+                background-color: blue;
+            }
+            .cir {
+                position: relative;
+                display: block;
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+                background-color: red;
+                transform: scale(0);
+                transition: all 0.3s;
+            }
+            /*.cir::before {
+                content: "";
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                z-index: 10;
+                background-color: #323b43;
+            }*/
+            .bed:hover .cir{
+                transform: scale(1);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="bed">
+            <div class="cir">
+            </div>
+        </div>
+
+    </body>
+</html>
