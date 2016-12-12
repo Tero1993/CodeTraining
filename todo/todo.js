@@ -4,7 +4,6 @@ var log = function() {
 
 var mytodoList = []
 
-
 //需要用到的函数
 //这是日期时间函数
 var currentTime = function() {
@@ -18,16 +17,25 @@ var currentTime = function() {
     var hours = d.getHours()
     var minutes = d.getMinutes()
     var seconds = d.getSeconds()
-    var timeString = `${year}/${month}/${date} ${hours}:${minutes}:${seconds}`
+    var timeArr = [month, date, hours, minutes, seconds]
+    var len = timeArr.length
+    for (var i = 0; i < len; i++) {
+        if (timeArr[i] < 10) {
+            timeArr[i] = ('0' + String(timeArr[i]))
+        }
+    }
+    var timeString = `${year}/${timeArr[0]}/${timeArr[1]} ${timeArr[2]}:${timeArr[3]}:${timeArr[4]}`
     return timeString
 }
 
 //这是保存todo的函数
 var saveTodos = function() {
-    //先将todo列表用JSON进行处理并赋值给s
-    var s = JSON.stringify(mytodoList)
-    //然后使用本地存储API存到本地(这个本地存储的容量大概有5M)
-    localStorage.mytodoList = s
+    if (mytodoList.length !== 0) {
+        //先将todo列表用JSON进行处理并赋值给s
+        var s = JSON.stringify(mytodoList)
+        //然后使用本地存储API存到本地(这个本地存储的容量大概有5M)
+        localStorage.mytodoList = s
+    }
 }
 
 //这是从localStorage中加载mytodoList的函数
@@ -48,9 +56,15 @@ var insertTodo = function(todo) {
 
 //这是把todo处理成html的函数
 var templateTodo = function(todo) {
-
+    if (todo.state == 'done') {
+        log('state', todo.state)
+        var h = `<div class='todo-cell done'>`
+    } else {
+        log('st2', todo.state)
+        var h = `<div class='todo-cell'>`
+    }
     var t = `
-        <div class='todo-cell'>
+        ${h}
             <span class='todo-label' contenteditable='false'>${todo.task}</span>
             <span class="todo-time">${todo.time}</span>
             <div class="menuDiv">
@@ -61,6 +75,7 @@ var templateTodo = function(todo) {
             <button class='viceButton todo-menu'>Menu</button>
         </div>
     `
+    log('h', h)
     return t
 }
 
@@ -108,7 +123,7 @@ var GuaAlert2 = function(title, message, callback) {
 GuaAlert2('WARNING', 'Are you sure you whant to delete all TODO?', callback = function(bool) {
     if (bool === true) {
         console.log('Yes')
-        localStorage.mytodoList = ''
+        localStorage.clear()
         var cells = $($('.todo-cell'))
         cells.each(function(i, cell){
             cells[i].remove()
@@ -139,14 +154,14 @@ var alertTemplete = function(title, message) {
 }
 
 var alertCss = function() {
+    var w = $('.todo-main').css('width')
+    var h = $('.todo-main').css('height')
     var t = `
     .modal-alert {
         position: absolute;
-        display: block;
-        top: 10%;
-        left: 20%;
-        width: 60%;
-        height: 70%;
+        display:block;
+        width: ${w};
+        height: ${h};
         border-radius: 5px;
         background-color: black;
         opacity: 0.5;
@@ -156,8 +171,9 @@ var alertCss = function() {
         background: white;
         width: 300px;
         height: 150px;
-        top: 40%;
-        left: 42%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         opacity: 1;
     }
     #id-div-title {
@@ -219,7 +235,8 @@ var bindEvents = function() {
             var todo = {
                 'task': task,
                 //调用一个时间函数
-                'time': currentTime()
+                'time': currentTime(),
+                'state': 'to be done'
             }
             log('todo',todo)
             //把todo给push到mytodoList里面
@@ -261,7 +278,16 @@ var bindEvents = function() {
                 var todoDiv = target.parentElement.parentElement
                 toggleClass(todoDiv, 'done')
                 log('todoDiv', todoDiv)
-
+                var index = indexOfElement(todoDiv)
+                var state = mytodoList[index].state
+                log('mytodoList[index]', mytodoList[index])
+                log('mytodoList[index].satet', mytodoList[index].state)
+                if (state == 'to be done') {
+                    mytodoList[index].state = 'done'
+                } else {
+                    mytodoList[index].state = 'to be done'
+                }
+                saveTodos()
             } else if (target.classList.contains('todo-delete')) {
                 var todoDiv = target.parentElement.parentElement
                 var index = indexOfElement(todoDiv)
@@ -282,15 +308,18 @@ var bindEvents = function() {
                 var span = cell.children[0]
                 span.setAttribute('contenteditable', 'true')
                 span.focus()
+                var range = document.createRange()
+                range.selectNode(span)
+                window.getSelection().addRange(range)
+
+                target.parentElement.classList.remove('menuDiv-active')
             }
             else if (target.classList.contains('todo-menu')) {
                 log('target.parentElement.children[2]',target.parentElement.children[2])
-                toggleClass(target.parentElement.children[2], 'menuDiv')
                 toggleClass(target.parentElement.children[2],'menuDiv-active')
                 log('target.parentElement.children[2]ED',target.parentElement.children[2])
             }
         })
-
         //实现编辑todo后失去焦点自动保存
         todoContainer.addEventListener('blur', function(event){
             log('container blur', event, event.target)
@@ -308,17 +337,55 @@ var bindEvents = function() {
                 saveTodos()
             }
         }, true)
+
+        // $('#id-div-container').on('mouseover', function(event){
+        //     var target = event.target
+        //     if (target.classList.contains('todo-menu')) {
+        //         log('event:', event,'target:',target)
+        //         target.parentElement.children[2].classList.add('menuDiv-active')
+        //     }
+        // })
+        // $('#id-div-container').on('mouseout', function(event){
+        //     var target = event.target
+        //     if (target.classList.contains('menuButton')) {
+        //         log('event:', event,'target:',target)
+        //         target.parentElement.classList.remove('menuDiv-active')
+        //     }
+        // })
+        // $('#id-div-container').on('mouseout', function(event){
+        //     var target = event.target
+        //     if (target.classList.contains('todo-menu')) {
+        //         log('event:', event,'target:',target)
+        //         target.parentElement.children[2].classList.remove('menuDiv-active')
+        //     }
+        // })
     }
     bindCell()
+
+    //输入框点击回车失去焦点add todo
+    var bindInput = function() {
+        $('.todo-form').on('keydown', function(event){
+            var target = event.target
+            log('TARGET', target)
+            if (event.key === 'Enter') {
+                event.preventDefault()
+                $('.addButton').click()
+                target.select()
+            }
+        })
+    }
+    bindInput()
 }
+
 // 程序加载后, 加载 mytodoList 并且添加到页面中
 var loadAllTodo = function(){
-    mytodoList = loadTodos()
-    for (var i = 0; i < mytodoList.length; i++) {
-        var todo = mytodoList[i]
-        log('i', i)
-        log('todo', todo)
-        insertTodo(todo)
+    if (localStorage.mytodoList !== undefined) {
+        mytodoList = loadTodos()
+        var len = mytodoList.length
+        for (var i = 0; i < len; i++) {
+            var todo = mytodoList[i]
+            insertTodo(todo)
+        }
     }
 }
 

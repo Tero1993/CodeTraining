@@ -32,6 +32,9 @@
             font-size: 14px;
             line-height: 18px;
         }
+        .W_input:focus {
+            outline: none;
+        }
         .textBed{
             position: absolute;
             display: block;
@@ -79,7 +82,6 @@
         }
         .commentsDiv {
             position: relative;
-            display: inline-table;
             top: 38%;
             left: 12%;
             width: 580px;
@@ -87,12 +89,14 @@
             border: 3px solid;
             border-radius: 5px;
             background-color: white;
+            overflow-y: scroll;
         }
         .commentDiv {
             position: relative;
             display: block;
             width: 100%;
             margin: 3px 0;
+            border-bottom: 1px solid blue;
         }
         .comment {
             position: relative;
@@ -122,14 +126,6 @@
             line-height: 35px;
             margin: 3px;
         }
-        .departLine {
-            position: absolute;
-            display: block;
-            top: 30%;
-            width: 100%;
-            height: 1px;
-            background-color: deepskyblue;
-        }
         </style>
     </head>
     <body>
@@ -140,8 +136,6 @@
                     <span class="font">还可以输入<span class="num">140</span>个字</span>
                     <button class="submit" type="button">提交</button>
                 </div>
-            </div>
-            <div class="departLine">
             </div>
             <div class="commentsDiv">
             </div>
@@ -186,7 +180,6 @@ var bindEvent = function() {
                 </p><br>
                 <span>${currentTime()}</span>
             </div>
-        <hr>
         `
         $('.commentsDiv').append(t)
     })
