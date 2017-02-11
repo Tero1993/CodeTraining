@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>tk个人主页</title>
+        <link href="http://cdn.bootcss.com/bootstrap/4.0.0-alpha.5/css/bootstrap-flex.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/index.css">
+        <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>
+    </head>
+    <body>
+        <!-- 开场动画 -->
+        <div class="wrapper">
+            <div class="loader-section left-section">
+            </div>
+            <div class="loader">
+            </div>
+            <div class="loader-section right-section">
+            </div>
+        </div>
+        <!-- 导航栏 -->
+        <div class="nav-bed">
+            <nav class="navbar" role="navigation">
+                <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#tmNavbar">
+                    ☰
+                </button>
+                <div class="collapse navbar-toggleable-sm text-xs-center text-uppercase tm-navbar" id="tmNavbar">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item active selected">
+                            <a class="nav-link" href="#0" data-no="1">Intro <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#0" data-no="2">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#0" data-no="3">Gallery</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#0" data-no="4">Video</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#0" data-no="5">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <!-- 各主题页面 -->
+        <ul class="page-list">
+            <li class="slider-page li-1 li-active" data-i="1">
+                <div class="container-fluid p1">
+                </div>
+            </li>
+            <li class="slider-page li-2" data-i="2">
+                <div class="p2">
+                </div>
+            </li>
+            <li class="slider-page li-3" data-i="3">
+                <div class="container-fluid p3">
+                    <div class="row demo-wall">
+                        <div class="col-md-4 demo-cell">
+                            <a href="image/tm-img-01.jpg">
+                                <img src="image/tm-img-01-tn.jpg" alt="Image" class="img-fluid tm-img">
+                                <div class="mask">
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4 demo-cell">
+                            <a href="image/tm-img-02.jpg">
+                                <img src="image/tm-img-02-tn.jpg" alt="Image" class="img-fluid tm-img">
+                                <div class="mask">
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4 demo-cell">
+                            <a href="image/tm-img-03.jpg">
+                                <img src="image/tm-img-03-tn.jpg" alt="Image" class="img-fluid tm-img">
+                                <div class="mask">
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4 demo-cell">
+                            <a href="image/tm-img-04.jpg">
+                                <img src="image/tm-img-04-tn.jpg" alt="Image" class="img-fluid tm-img">
+                                <div class="mask">
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4 demo-cell">
+                            <a href="image/tm-img-05.jpg">
+                                <img src="image/tm-img-05-tn.jpg" alt="Image" class="img-fluid tm-img">
+                                <div class="mask">
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4 demo-cell">
+                            <a href="image/tm-img-06.jpg">
+                                <img src="image/tm-img-06-tn.jpg" alt="Image" class="img-fluid tm-img">
+                                <div class="mask">
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="slider-page li-4" data-i="4">
+                <div class="p4">
+                </div>
+            </li>
+            <li class="slider-page li-5" data-i="5">
+                <div class="p5">
+                </div>
+            </li>
+            <!-- 底栏 -->
+            <footer class="footer">
+            </footer>
+        </ul>
+<script>
+    var log = function() {
+        console.log.apply(console, arguments)
+    }
+    // 入场动画,页面加载完成后施放
+    $(document).ready(function(){
+        var kill = function() {
+            $('.loader').css('opacity', '0')
+            $('.wrapper').css('animation', 'disappear 0.3s 1.8s  both ease-out')
+            $('.left-section').css('animation', 'slideLeft 0.6s 0.3s both cubic-bezier(0.645, 0.045, 0.355, 1.000)')
+            $('.right-section').css('animation', 'slideRight 0.6s 0.3s both cubic-bezier(0.645, 0.045, 0.355, 1.000)')
+        }
+        setTimeout(kill, 1000)
+    })
+    // 导航栏点击切换页面
+    $('.nav-item').on('click', function(event){
+        var target = $(event.target)
+        log('target', target)
+        var i = target.data('no')
+        log('next', i)
+        log('active', $('.li-active'))
+        var c = $('.li-active').data('i')
+        var next = `.li-${i}`
+        if (c < i) {
+            $('.li-active').css('transform', 'translateX(-100%)')
+            $('.li-active').removeClass('li-active')
+            $(next).addClass('li-active')
+            log('c', c)
+            $(next).css('transform', 'translateX(0)')
+        }
+        if (c > i) {
+            $('.li-active').css('transform', 'translateX(100%)')
+            $('.li-active').removeClass('li-active')
+            $(next).addClass('li-active')
+            log('c', c)
+            $(next).css('transform', 'translateX(0)')
+        }
+    })
+    // 通过判断鼠标进入图片的方向, 来施放对应的动画效果
+    $('.demo-cell').bind('mouseover mouseout', function(e){
+        var target = e.target
+        var wid = $(this).css('width')
+        var hei = $(this).css('height')
+        var w = Number(wid.slice(0, wid.length-2))
+        var h = Number(hei.slice(0, hei.length-2))
+        log('cen', $(this).offset().top, $(this).offset().left)
+        var x = (e.pageX - $(this).offset().left - (w / 2)) * (w > h ? (h / w) : 1)
+        var y = (e.pageY - $(this).offset().top - (h / 2)) * (h > w ? (w / h) : 1)
+        var direction = Math.round((((Math.atan2(y, x) * (180 / Math.PI)) + 180) / 90) + 3) % 4
+        var dirName = new Array('上方','右侧','下方','左侧')
+        log('x', x, 'y', y)
+        var type = e.type
+        if (type == 'mouseover') {
+            log(dirName[direction] + '进入')
+            switch (direction) {
+                case 0 :
+                log('cld', $(this).find('div'))
+                $(this).find('div').css('left', '0%')
+                $(this).find('div').css('top', '0%')
+                    break;
+                case 1 :
+                log('yb')
+                $(this).find('div').css('top', '0%')
+                $(this).find('div').css('left', '0%')
+                    break;
+                case 2 :
+                log('xw')
+                $(this).find('div').css('left', '0%')
+                $(this).find('div').css('top', '0%')
+                    break;
+                case 3 :
+                log('zo')
+                $(this).find('div').css('left', '0%')
+                $(this).find('div').css('top', '0%')
+                    break;
+            }
+        } else {
+            switch (direction) {
+                case 0 :
+                $(this).find('div').css('top', '-100%')
+                $(this).find('div').css('left', '0%')
+                    break;
+                case 1 :
+                $(this).find('div').css('left', '100%')
+                $(this).find('div').css('top', '0%')
+                    break;
+                case 2 :
+                $(this).find('div').css('top', '100%')
+                    break;
+                case 3 :
+                // $(this).find('div').css('top', '100%')
+                $(this).find('div').css('left', '-100%')
+                    break;
+            }
+            log(dirName[direction] + '离开')
+        }
+    })
+</script>
+
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    </body>
+</html>

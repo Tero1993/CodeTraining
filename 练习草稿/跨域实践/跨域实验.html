@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>跨域实验</title>
+    </head>
+    <body>
+        <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>
+        <!-- <script src="https://api.douban.com/v2/book/1220562"></script> -->
+        <!-- <iframe src="http://www.baidu.com" width="400px" height="600px"></iframe> -->
+        <script>
+        // doban = {
+        //     sug:function(json) {
+        //         console.log('json', json)
+        //     },
+        // }
+        jQuery(document).ready(function(){
+           $.ajax({
+                type: "GET",
+                async: true,
+                url: "https://api.douban.com/v2/book/1220562",
+                dataType: "jsonp",
+                // jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(一般默认为:callback)
+                // jsonpCallback:"tk",//自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名，也可以写"?"，jQuery会自动为你处理数据
+                success: function(json){
+                    console.log(json)
+                },
+                error: function(){
+                    alert('fail');
+                }
+            })
+        })
+        </script>
+    </body>
+</html>

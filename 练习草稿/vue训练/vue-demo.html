@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>vue-demo</title>
+  </head>
+  <body>
+    <div id="vueInstance">
+      <!-- 如果希望用户在登录后才能看到欢迎弹窗, 没有登录则给出登录界面
+      Vue会提供一个v-if和v-show指令来控制不同登录状态下所显示的内容
+      此处对于登录情况暂时不进行身份验证, 只改变登录状态 -->
+      <!-- loginStatus为true时会显示的section -->
+      <section v-if="loginStatus">
+        <!-- 利用v-model进行双向数据绑定,动态获取数据对象的值(此处能够通过用户的输入操作而更新数据) -->
+        输入您的姓名: <input type="text" v-model="name">
+        <!-- 用v-on或者@绑定事件 -->
+        <button v-on:click="say">欢迎点击</button>
+        <button @click="switchLoginStatus">退出登录</button>
+      </section>
+
+      <!-- loginStatus为false时会显示的section -->
+      <section v-if="!loginStatus">
+        输入账号:<input type="text">
+        输入密码:<input type="password">
+        <button @click="switchLoginStatus">登录</button>
+      </section>
+      <!-- 这里$data就是实时变化的data,用'|json来将其转成JSON格式',这里是随着用户输入的内容变化而更新 -->
+      <p>{{$data | json}}</p> //#1
+      <p>{{ name }}</p>          //#2
+    </div>
+<!-- 利用v-for来遍历数组 -->
+    <div id="vueInstance2">
+      <ul>
+        <li v-for="el in products">
+          {{ $index}} - {{ el.name }} - ¥{{ el.price }} - {{ el.category }}
+        </li>
+      </ul>
+
+      输入一个数字: <input type="text" v-model="value1">
+      <p>
+        计算结果: {{ square }}
+      </p>
+
+      输入你猜的0-10数字: <input type="text" v-model="value2">
+      <p>
+        {{ check }}
+      </p>
+    </div>
+    <script src="http://cdn.jsdelivr.net/vue/1.0.16/vue.js"></script>
+
+    <script>
+      //创建一个新的vue实例,并指定一个DOM元素作为实例的挂载点
+      var V = new Vue({
+        el : '#vueInstance',
+        data : {
+          name : "_Yutktk",
+          loginStatus : false
+        },
+        methods : {
+                  say : function(){
+                       alert('欢迎' + this.name)
+                   },
+                   switchLoginStatus : function(){
+                       this.loginStatus =! this.loginStatus;
+                   }
+               }
+           })
+// 在上面, this执行的就是实例V,只要把v-if换成v-show, 一样可以获得同等效果.
+//同时v-if和v-show都支持v-else.
+//但是绑定v-else命令的标签的前一个兄弟元素必须有v-if或者v-show.
+
+// 在切换 v-if 块时，Vue有一个局部编译/卸载过程,
+// 因为 v-if 之中的模板也可能包括数据绑定或子组件。
+// v-if 是真实的条件渲染,
+// 因为它会确保条件块在切换当中合适地销毁与重建条件块内的事件监听器和子组件。
+//
+// v-if 也是惰性的：
+// 如果在初始渲染时条件为假,
+// 则什么也不做, 在条件第一次变为真时才开始局部编译（编译会被缓存起来）。
+// 相比之下，v-show 简单得多,元素始终被编译并保留，只是简单地基于CSS切换
+//
+// 一般来说，v-if 有更高的切换消耗而 v-show 有更高的初始渲染消耗。
+// 因此，如果需要频繁切换 v-show 较好，如果在运行时条件不大可能改变 v-if 较好。
+//
+// 这个差别也许对你目前的开发来说并不重要，但是你还是要注意和留心,
+// 因为当你的项目开发变大的时候，这点会变得重要起来。
+
+var v2 = new Vue({
+    el : '#vueInstance2',
+    data : {
+         products : [
+               {name: 'microphone', price: 25, category: 'electronics'},
+               {name: 'laptop case', price: 15, category: 'accessories'},
+               {name: 'screen cleaner', price: 17, category: 'accessories'},
+               {name: 'laptop charger', price: 70, category: 'electronics'},
+               {name: 'mouse', price: 40, category: 'electronics'},
+               {name: 'earphones', price: 20, category: 'electronics'},
+               {name: 'monitor', price: 120, category: 'electronics'}
+         ],
+         value1 : 1,
+         value2 : '',
+         randomNum : null
+       },
+    methods : {
+        getRandomNum : function() {
+            var num = Math.floor(Math.random() * 10)
+            console.log('num', num)
+            return num
+        }
+    },
+
+// 计算属性computed适用于一个变量的值需要另一个变量计算得到情况,比如输入一个数,返回其平方
+  computed : {
+        square : function() {
+             return this.value1 * this.value1
+         },
+        check : function() {
+            if (this.value2 == this.randomNum) {
+                this.randomNum = this.getRandomNum()
+                return '666,猜对了, 继续'
+            }
+            else if (this.value2 == ''){
+                this.randomNum = this.getRandomNum()
+                return '----'
+            } else {
+                this.randomNum = this.getRandomNum()
+                return 'too young!猜错了, 再来'
+            }
+        }
+       }
+   })
+
+</script>
+
+  </body>
+</html>
