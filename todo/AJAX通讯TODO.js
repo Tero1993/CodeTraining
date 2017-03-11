@@ -47,7 +47,6 @@ var currentTime = function() {
     var seconds = d.getSeconds()
     var timeString = `${month}/${date} ${hours}:${minutes}:${seconds}`
     return timeString
-
 }
 
 //这是添加html的函数
@@ -102,9 +101,24 @@ var ajax = function(request) {
     } else {
         r.send(request.data)
     }
-
 }
-
+$.ajax({
+    url: "/todo/add",
+    type: "post",
+    data: { task: 'wouitask' },
+    dataType: "json",
+    success: function(msg) {
+        console.log('msg', msg)
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+        console.log('status',XMLHttpRequest.status);
+        console.log('readystate',XMLHttpRequest.readyState);
+        console.log('textStatus',textStatus);
+    },
+    complete: function(XMLHttpRequest, textStatus) {
+        this; // 调用本次AJAX请求时传递的options参数
+    }
+});
 //给add按钮绑定添加todo事件(即点击add就添加输入框中的todo)
 var bindEventAdd = function() {
     var addButton = document.querySelector('#id-button-add')
