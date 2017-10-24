@@ -6,6 +6,10 @@
         <title>slider</title>
         <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>
         <style>
+            html,body {
+                height: 100%;
+                padding: 0;
+            }
             .relSlider {
                 position: absolute;
                 top: 50%;
@@ -301,19 +305,7 @@
                 overflow: scroll;
                 /*background-color: red;*/
             }
-            .lrc-area {
-                position: absolute;
-                top: 15%;
-                left: 0%;
-                width: 100%;
-                height: 60%;
-                font-family: Microsoft YaHei;
-                font-size: 16px;
-                text-align: center;
-                color: white;
-                background-color: red;
-                overflow: scroll;
-            }
+           
             p{
                 position: relative;
                 top: 30%;
@@ -321,13 +313,7 @@
                 display: block;
                 width: 100%;
             }
-            .currentLrc {
-                position: absolute;
-                top: 30%;
-                background-color: green;
-                font-size: 18px;
-                color: yellow;
-            }
+            
             /*适应移动端*/
             @media all and (min-width: 320px) and (max-width: 414px){
                 .sliderBar {
