@@ -90,7 +90,8 @@
             .play-pause {
                 position: absolute;
                 top: 0;
-                left: 47.5%;
+                left: 50%;
+                transform: translate(-50%, 0);
                 width: 5%;
                 height: 100%;
                 margin: 0;
@@ -205,8 +206,9 @@
             }
             .small-bgp {
                 position: absolute;
-                top: 30%;
-                left: 44.6%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
                 /*width: 20%;
                 height: 35%;*/
             }
@@ -302,10 +304,26 @@
                 top: 0%;
                 width: 100%;
                 height: 80%;
-                overflow: scroll;
+                overflow-y: scroll;
                 /*background-color: red;*/
             }
+<<<<<<< HEAD:MusicPlayer/slider.html
            
+=======
+            .lrc-area {
+                position: absolute;
+                top: 15%;
+                left: 0%;
+                width: 100%;
+                height: 60%;
+                font-family: Microsoft YaHei;
+                font-size: 16px;
+                text-align: center;
+                color: white;
+/*                 background-color: red; */
+                overflow: scroll;
+            }
+>>>>>>> d34b46aebaea67c374b0b8332c7b835cecc5a18f:MusicPlayer/index.html
             p{
                 position: relative;
                 top: 30%;
@@ -342,7 +360,8 @@
                     height: 10%;
                 }
                 .play-pause {
-                    left: 41%;
+                    left: 50%;
+                    transform: translate(-50%);
                     width: 17.7%;
                 }
                 .cutSong {
@@ -390,8 +409,9 @@
                 }
                 .small-bgp {
                     position: absolute;
-                    top: 34%;
-                    left: 24%;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
                 }
                 .contact-area {
                     position: absolute;
@@ -502,9 +522,9 @@
             </div>
         </div>
         <!-- 歌词区域 -->
-        <div class="lrc-area">
+        <!-- <div class="lrc-area">
             <p class="currentLrc"></p>
-        </div>
+        </div> -->
         <audio class="musicPlayer"></audio>
 <script>
 var log = function() {

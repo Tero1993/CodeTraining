@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>loader</title>
+    <style>
+      body{
+        display: flex;
+        width: 100%;
+        height: 100%;
+        font-size: 62.5%;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+      .loader-bed{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 200px;
+        height: 200px;
+        margin: 2px;
+        background-color: deepskyblue;
+      }
+      @keyframes rotate {
+          0%,
+          100% {
+              -webkit-transform: rotate(0deg);
+          }
+          100% {
+              -webkit-transform: rotate(360deg);
+          }
+      }
+      .loader1{
+        display: flex;
+        width: 80%;
+        height: 80%;
+        border-radius: 50%;
+        border-top: 10px solid rgba(255, 255, 255, 0.2);
+        border-right: 10px solid rgba(255, 255, 255, 0.2);
+        border-bottom: 10px solid rgba(255, 255, 255, 0.2);
+        border-left: 10px solid #ffffff;
+        background-color: deepskyblue;
+        animation: rotate 1.5s linear infinite;
+      }
+      @keyframes load2 {
+        0% {
+          -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+        }
+        100% {
+          -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+        }
+      }
+      .load2 .loader2{
+        display: flex;
+        width: 80%;
+        height: 80%;
+        border-radius: 50%;
+        background: #ffffff;
+        background: linear-gradient(to right, #ffffff 10%, rgba(255, 255, 255, 0) 42%);
+        /*animation: load2 1.4s infinite linear;*/
+      }
+      .loader2 .loader2::before {
+        width: 50%;
+        height: 50%;
+        background: #FFF;
+        border-radius: 100% 0 0 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: '';
+      }
+      .loader2 .loader2:after {
+        background: #0dcecb;
+        width: 75%;
+        height: 75%;
+        border-radius: 50%;
+        content: '';
+        margin: auto;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+      }
+      .loader3{
+        display: flex;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loader-bed">
+      <div class="loader1">
+      </div>
+    </div>
+    <div class="loader-bed load2">
+      <div class="loader2">
+      </div>
+    </div>
+    <div class="loader-bed">
+      <div class="loader3">
+      </div>
+    </div>
+    <div class="loader-bed">
+
+    </div>
+    <div class="loader-bed">
+
+    </div>
+    <div class="loader-bed">
+
+    </div>
+    <div class="loader-bed">
+
+    </div>
+  </body>
+</html>

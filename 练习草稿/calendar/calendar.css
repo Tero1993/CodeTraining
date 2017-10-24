@@ -5,15 +5,9 @@
  * 设置日历的大小
  */
 .calendar{
-  position: absolute;
+  width: 240px;
+  height: 400px;
   display: block;
-  top: 60%;
-  left: 3%;
-  width: 35%;
-  height: 35%;
-  border-radius: 5px;
-   font-family: Microsoft YaHei;
-  background-color: #46907f;
 }
 
 /**
@@ -23,7 +17,6 @@
   position: relative;
   width: 100%;
   height: 36px;
-  font-size: 1em;
   line-height: 36px;
   text-align:center;
   border-bottom: 1px solid #ddd;
@@ -73,9 +66,8 @@
 
 /* 表格行高 */
 .calendar-table tr{
-  font-size: 0.8em;
-  height: 25px;
-  line-height: 25px;
+  height: 30px;
+  line-height: 30px;
 }
 
 /* 当前天 颜色特殊显示 */
@@ -85,10 +77,10 @@
 
 /* 本月 文字颜色 */
 .currentMonth {
-  color: #ede;
+  color: #999;
 }
 
 /* 其他月颜色 */
 .otherMonth{
-  color: #999;
+  color: #ede;
 }

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>flex布局方块</title>
+        <style>
+            html{
+                height: 100%;
+            }
+            body{
+                display: flex;
+                height: 100%;
+                align-items: center;
+                justify-content: center;
+            }
+            .square-bed {
+                display: flex;
+                width: 55%;
+                height: 90%;
+                background-color: grey;
+                /*定义多跟轴线的对齐方式，只有一根轴线时该属性无作用*/
+                align-content:space-around;
+                /*定义项目在交叉轴（竖）上如何对齐*/
+                /*align-items: center;*/
+                /*定义项目在主轴（横）上的对齐方式*/
+                justify-content: space-between;
+                flex-wrap: wrap;
+            }
+            .small-square{
+                display: flex;
+                width: 160px;
+                height: 160px;
+                color: white;
+                font-size: 4em;
+                font-family: Micorsoft YaHei;
+                /*align-self: center;*/
+                justify-content: center;
+                align-items: center;
+                text-shadow: 5px 5px 5px grey;
+                background-color: red;
+                margin: 2px;
+                border-radius: 10%;
+                box-shadow: inset 5px 5px 20px white;
+            }
+            .red{
+                background-color: red;
+            }
+            .orange{
+                background-color: orange;
+            }
+            .yellow{
+                background-color: yellow;
+            }
+            .green{
+                background-color: green;
+            }
+            .navy{
+                background-color: navy;
+            }
+            .blue{
+                background-color: blue;
+            }
+            .purple{
+                background-color: purple;
+            }
+            .deeppink{
+                background-color: deeppink;
+            }
+            .deepskyblue{
+                background-color: deepskyblue;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="square-bed">
+            <div class="small-square red">
+                <span>1</span>
+            </div>
+            <div class="small-square orange">
+                <span>2</span>
+            </div>
+            <div class="small-square yellow">
+                <span>3</span>
+            </div>
+            <div class="small-square green">
+                <span>4</span>
+            </div>
+            <div class="small-square navy">
+                <span>5</span>
+            </div>
+            <div class="small-square blue">
+                <span>6</span>
+            </div>
+            <div class="small-square purple">
+                <span>7</span>
+            </div>
+            <div class="small-square deeppink">
+                <span>8</span>
+            </div>
+            <div class="small-square deepskyblue">
+                <span>9</span>
+            </div>
+        </div>
+    </body>
+</html>

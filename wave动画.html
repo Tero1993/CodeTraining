@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>wave</title>
+    <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    @keyframes wave {
+      0%{
+      -webkit-transform:translateZ(0px);
+      background-position: 0 0;
+    }
+      100%{
+      -webkit-transform:translateZ(0);
+      background-position: -1920px 0;
+    }
+  }
+    @keyframes bgc {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+      .bgp-div {
+        background-color: black;
+        background-image: url('image\\bg_wave.png');
+        overflow: hidden;
+        position: absolute;
+        width: 100%;
+        height: 100px;
+        z-index: 1;
+        background-position: 0 0;
+        animation: wave 20s 0.2s  linear both infinite;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bgp-div">
+    </div>
+  </body>
+</html>
