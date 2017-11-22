@@ -160,12 +160,14 @@ $('document').ready(function(){
         var i = (activeIndex + numberOfImgs + offset) % numberOfImgs
         log('i', i, typeof i)
         $('.t-slide-imgs').data('active', i)
-        $('.t-slide-active').fadeOut()
-        $('.t-slide-active').removeClass('t-slide-active')
+        $('.t-slide-active').fadeOut(100, function(){
+            $('.t-slide-active').removeClass('t-slide-active')
 
-        var active = $($('.t-slide-img')[i])
-        active.addClass('t-slide-active')
-        active.fadeIn()
+            var active = $($('.t-slide-img')[i])
+            active.addClass('t-slide-active')
+            active.fadeIn()
+        })
+
         //改变指示器
         $('.t-slide-i-active').removeClass('t-slide-i-active')
         var activeIndicator = $($('.t-slide-i')[i])
@@ -207,9 +209,9 @@ $('document').ready(function(){
         $('.t-slide-button').on('click', function(event){
             var button = $(event.target)
             if (button.hasClass('t-slide-button-left')) {
-                setTimeout(playPrev, 400)
+                setTimeout(playPrev, 200)
             } else {
-                setTimeout(playNext, 400)
+                setTimeout(playNext, 200)
             }
         })
     }
