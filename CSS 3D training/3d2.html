@@ -5,7 +5,7 @@
         <title>3d2</title>
     <style>
         body {
-            background-color: deepskyblue;
+            background-color: #000;
         }
         .wuTai {
             position: absolute;
@@ -17,8 +17,9 @@
             height: 90%;
             width: 60%;
             transform: translate(-50%, -50%);
-            background-color: #eeede4;
+            background-color: #000;
             perspective: 2000px;
+            border-radius: 8px;
         }
         @keyframes autoRun {
             0% {
@@ -36,8 +37,9 @@
         }
         .tdImage {
             position: absolute;
-            width: 100%;
-            height: 100%;
+            width: 80%;
+            height: 80%;
+            /*border-radius: 8px;*/
         }
         .shadow {
             position: absolute;
@@ -51,21 +53,55 @@
             width: 100%;
             height: 100%;
         }
+        .tdImage:hover {
+            /*box-shadow: 0px 0px 4px 4px deeppink;*/
+            /*box-shadow: inset 0px 0px 4px 4px deeppink;*/
+        }
+        .face1 {
+            background: deeppink;
+            box-shadow: 0 0 40px 10px #f553ab;
+        }
+        .face2 {
+            background: orangered;
+            box-shadow: 0 0 40px 10px orangered;
+        }
+        .face3 {
+            background: yellow;
+            box-shadow: 0 0 40px 10px yellow;
+        }
+        .face4 {
+            background: lightgreen;
+            box-shadow: 0 0 40px 10px #90ee90;
+        }
+        .face5 {
+            background: darkcyan;
+            box-shadow: 0 0 40px 10px darkcyan;
+        }
+        .face6 {
+            background: deepskyblue;
+            box-shadow: 0 0 40px 10px deepskyblue;
+        }
     </style>
 </head>
 <body>
     <div class="wuTai">
         <div class="container">
-            <img class="tdImage I1" src="image/1.jpg" alt="" />
-            <img class="tdImage" src="image/2.jpg" alt="" />
-            <img class="tdImage" src="image/3.jpg" alt="" />
-            <img class="tdImage" src="image/4.jpg" alt="" />
-            <img class="tdImage" src="image/5.jpg" alt="" />
-            <img class="tdImage" src="image/6.jpg" alt="" />
+            <!--<img class="tdImage face1 I1" src="image/1.jpg" alt="" />
+            <img class="tdImage face2" src="image/2.jpg" alt="" />
+            <img class="tdImage face3" src="image/3.jpg" alt="" />
+            <img class="tdImage face4" src="image/4.jpg" alt="" />
+            <img class="tdImage face5" src="image/5.jpg" alt="" />
+            <img class="tdImage face6" src="image/6.jpg" alt="" />-->
+            <div class="tdImage face1 I1"></div>
+            <div class="tdImage face2"></div>
+            <div class="tdImage face3"></div>
+            <div class="tdImage face4"></div>
+            <div class="tdImage face5"></div>
+            <div class="tdImage face6"></div>
         </div>
-        <div class="shadow">
+        <!--<div class="shadow">
             <img id="id-shadow-image"src="image/shadow.png" alt="" />
-        </div>
+        </div>-->
     </div>
     <script src="../jquery/jquery-3.1.1.js"></script>
 <script>
@@ -82,18 +118,18 @@ tdImg.each(function(i, img){
     var ws = w.slice(0, wLen - 2) / 2
     var hs = h.slice(0, hLen - 2) / 2
     if (i < 4) {
-        $(img).css('transform', `rotateY(${90 * i}deg) translateZ(${hs}px)`)
+        $(img).css('transform', `rotateY(${90 * i}deg) translateZ(${hs + 4}px)`)
     } else if (i == 5) {
-        $(img).css('transform', `rotateX(${-90}deg) translateZ(${ws}px)`)
+        $(img).css('transform', `rotateX(${-90}deg) translateZ(${ws+4}px)`)
     } else {
-        $(img).css('transform', `rotateX(${90}deg) translateZ(${ws}px)`)
+        $(img).css('transform', `rotateX(${90}deg) translateZ(${ws+4}px)`)
     }
 })
 
 var slide = function() {
     var a = 1
     $('.wuTai').on('click', function(){
-        var target = event.target
+        var target = $(event.target)
         if (a % 6 < 4) {
             $('.container').css('transform', `rotateY(${90*a}deg)`)
         } else {
